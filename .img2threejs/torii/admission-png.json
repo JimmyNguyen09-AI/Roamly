@@ -1,0 +1,14 @@
+{
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+    "viewpoint": "reference",
+    "sourcePath": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\reference.png",
+    "width": 1536,
+    "height": 1024,
+    "foregroundCoverage": 0.226,
+    "largestComponentFraction": 1.0,
+    "pHash": 17865214477314557024,
+    "duplicateOfHash": null
+  }
+}

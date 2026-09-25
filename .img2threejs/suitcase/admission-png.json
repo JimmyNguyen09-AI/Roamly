@@ -1,0 +1,14 @@
+{
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+    "viewpoint": "reference",
+    "sourcePath": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\reference.png",
+    "width": 1024,
+    "height": 1536,
+    "foregroundCoverage": 0.4911,
+    "largestComponentFraction": 1.0,
+    "pHash": 18298367912471747152,
+    "duplicateOfHash": null
+  }
+}

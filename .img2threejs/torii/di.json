@@ -1,0 +1,20 @@
+{
+  "sourceImage": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\reference.png",
+  "zonesDir": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\detail-inventory",
+  "detailInventory": {
+    "scanMethod": "grid-3x3",
+    "targetMinDetails": 9,
+    "details": [
+      {"id":"kasagi-sweep","kind":"contour","description":"symmetric upturned charcoal top silhouette","region":{"x":0.14,"y":0.02,"width":0.72,"height":0.20,"units":"normalized"},"scale":"macro","affects":"primary silhouette","mapsTo":{"type":"component.localFeatures","ref":"kasagi.swept-profile"},"evidenceRef":"detail-inventory/zone-r0c1.png","confidence":0.98},
+      {"id":"kasagi-bevel","kind":"bevel","description":"broad bevel catching light along cap edges","region":{"x":0.14,"y":0.03,"width":0.72,"height":0.16,"units":"normalized"},"scale":"meso","affects":"cap highlight","mapsTo":{"type":"component.localFeatures","ref":"kasagi.edge-bevel"},"evidenceRef":"detail-inventory/zone-r0c1.png","confidence":0.9},
+      {"id":"shimagi-layer","kind":"seam","description":"vermilion beam layer directly beneath dark cap","region":{"x":0.17,"y":0.13,"width":0.66,"height":0.13,"units":"normalized"},"scale":"meso","affects":"upper beam hierarchy","mapsTo":{"type":"component.localFeatures","ref":"shimagi.layer-seam"},"evidenceRef":"detail-inventory/zone-r0c1.png","confidence":0.96},
+      {"id":"post-taper","kind":"contour","description":"two shafts widen subtly toward stone collars","region":{"x":0.28,"y":0.20,"width":0.48,"height":0.58,"units":"normalized"},"scale":"macro","affects":"post silhouette","mapsTo":{"type":"component.localFeatures","ref":"posts.taper"},"evidenceRef":"detail-inventory/zone-r1c1.png","confidence":0.94},
+      {"id":"nuki-projection","kind":"ridge","description":"mid beam projects beyond both post axes","region":{"x":0.12,"y":0.28,"width":0.76,"height":0.20,"units":"normalized"},"scale":"macro","affects":"cross-beam silhouette","mapsTo":{"type":"component.localFeatures","ref":"nuki.projecting-ends"},"evidenceRef":"detail-inventory/zone-r1c1.png","confidence":0.98},
+      {"id":"gakuzuka","kind":"ridge","description":"central vertical support between nuki and shimagi","region":{"x":0.46,"y":0.18,"width":0.10,"height":0.26,"units":"normalized"},"scale":"meso","affects":"central joinery","mapsTo":{"type":"component.localFeatures","ref":"cross-beams.gakuzuka"},"evidenceRef":"detail-inventory/zone-r0c1.png","confidence":0.95},
+      {"id":"tie-blocks","kind":"fastener","description":"mirrored rectangular joinery blocks near post heads","region":{"x":0.25,"y":0.18,"width":0.52,"height":0.18,"units":"normalized"},"scale":"meso","affects":"beam attachment","mapsTo":{"type":"component.localFeatures","ref":"joinery.tie-blocks"},"evidenceRef":"detail-inventory/zone-r0c1.png","confidence":0.93},
+      {"id":"stone-steps","kind":"bevel","description":"two-tier stone foundations with chamfered square footings","region":{"x":0.22,"y":0.73,"width":0.58,"height":0.25,"units":"normalized"},"scale":"meso","affects":"grounded silhouette","mapsTo":{"type":"component.localFeatures","ref":"foundations.stepped-bevels"},"evidenceRef":"detail-inventory/zone-r2c1.png","confidence":0.97},
+      {"id":"paint-wear","kind":"scratch","description":"subtle darker vertical wear on vermilion posts and beams","region":{"x":0.20,"y":0.12,"width":0.62,"height":0.66,"units":"normalized"},"scale":"micro","affects":"paint material variation","mapsTo":{"type":"material.localOverrides","ref":"vermilion.edge-wear"},"evidenceRef":"detail-inventory/zone-r1c1.png","confidence":0.76}
+    ]
+  },
+  "authoringInstruction": "Open each zone crop under zonesDir and replace every detail stub's kind, description, scale, affects, mapsTo, and confidence with what is actually observed. Add more detail entries per zone if a single zone contains multiple distinct marks; do not leave stubs unfilled or unlinked (mapsTo must reference a real component.localFeatures or material.localOverrides entry)."
+}

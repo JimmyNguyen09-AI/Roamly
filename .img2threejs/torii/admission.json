@@ -1,0 +1,16 @@
+{
+  "admitted": false,
+  "reasons": [
+    "cannot decode image as a usable reference: ValueError: could not decode 08-torii-reference.webp as PNG and macOS sips is unavailable: not a PNG file"
+  ],
+  "provenance": {
+    "viewpoint": "reference",
+    "sourcePath": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\assets\\media\\08-torii-reference.webp",
+    "width": 0,
+    "height": 0,
+    "foregroundCoverage": 0.0,
+    "largestComponentFraction": 0.0,
+    "pHash": null,
+    "duplicateOfHash": null
+  }
+}

@@ -1,0 +1,3499 @@
+{
+  "targetName": "Roamly torii gate",
+  "targetId": "roamly-torii-gate",
+  "schemaVersion": "2.1",
+  "terminologyProfile": {
+    "domain": "real-time procedural Three.js asset",
+    "geometryTerms": [
+      "silhouette",
+      "topology",
+      "primitive",
+      "bevel",
+      "chamfer",
+      "taper",
+      "bend",
+      "boolean cut",
+      "edge loop",
+      "surface normal",
+      "displacement"
+    ],
+    "materialTerms": [
+      "albedo",
+      "baseColor",
+      "roughness",
+      "metalness",
+      "normal map",
+      "bump map",
+      "ambient occlusion",
+      "cavity dirt",
+      "edge wear",
+      "clearcoat"
+    ],
+    "lightingTerms": [
+      "key light",
+      "fill light",
+      "rim light",
+      "HDRI/environment reflection",
+      "contact shadow"
+    ],
+    "descriptionRule": "Use measurable 3D graphics terms. Avoid vague words unless they are paired with concrete geometry/material/shader parameters."
+  },
+  "sourceImage": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\reference.png",
+  "referenceCamera": {
+    "solved": false,
+    "fovDegrees": 40,
+    "aspect": 1,
+    "orientation": {
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0
+    },
+    "positionHint": [
+      0,
+      0,
+      3
+    ],
+    "note": "For likeness work, solve the reference camera (forge/stage1_intake/solve_camera_pose.py) so the review render aligns with the photo and the reference can be projected. Confirm by overlay review."
+  },
+  "suitability": "conditional",
+  "scores": {
+    "object_isolation": 0,
+    "silhouette_readability": 0,
+    "depth_inference": 0,
+    "primitive_decomposition": 0,
+    "material_procedurality": 0,
+    "occlusion_risk": 0,
+    "interaction_fit": 0
+  },
+  "preSpecAssessment": {
+    "objectClass": {
+      "primaryType": "torii gate miniature",
+      "primaryDomain": "object",
+      "formLanguage": [
+        "architectural",
+        "hard-surface",
+        "bilateral"
+      ],
+      "structureKind": [
+        "compound object",
+        "layered assembly",
+        "mirrored modules"
+      ],
+      "motionPotential": [
+        "whole-object transform",
+        "clickable",
+        "camera pass-through"
+      ],
+      "materialFamilies": [
+        "painted wood",
+        "stone"
+      ],
+      "notes": "Stylized real-time landmark reconstructed from one three-quarter reference; rear joinery and beam depth are inferred."
+    },
+    "complexity": {
+      "tier": "moderate",
+      "scores": {
+        "silhouetteComplexity": 2,
+        "componentCount": 2,
+        "hierarchyDepth": 2,
+        "repetitionDensity": 1,
+        "materialLayerCount": 2,
+        "localDetailDensity": 2,
+        "occlusionRisk": 1,
+        "actionReadinessNeed": 2
+      },
+      "estimatedCounts": {
+        "macroComponents": 4,
+        "mesoComponents": 9,
+        "microFeatureGroups": 4,
+        "materialLayers": 3,
+        "repetitionSystems": 2
+      },
+      "reasoning": [
+        "Moderate architectural prop whose identity depends on a curved layered top silhouette, tapered posts, projecting nuki and stepped stone foundations.",
+        "Bilateral repetition reduces geometry complexity but joinery and curve fidelity require explicit components."
+      ]
+    },
+    "specDepthDecision": {
+      "requiredDepth": "moderate",
+      "minimumComponentLevels": [
+        "macro",
+        "meso"
+      ],
+      "needsRepetitionSystems": true,
+      "needsMaterialLocalOverrides": true,
+      "needsMultipleReviewViews": true,
+      "needsActionReadyHierarchy": true,
+      "rationale": "Mirrored post/foundation assemblies and layered cross-beams require macro and meso hierarchy; the curved cap must be real geometry."
+    },
+    "unknownsToResolveBeforeImplementation": [],
+    "detailInventory": {
+      "scanMethod": "grid-3x3",
+      "targetMinDetails": 9,
+      "details": [
+        {
+          "id": "kasagi-sweep",
+          "kind": "contour",
+          "description": "symmetric upturned charcoal top silhouette",
+          "region": {
+            "x": 0.14,
+            "y": 0.02,
+            "width": 0.72,
+            "height": 0.2,
+            "units": "normalized"
+          },
+          "scale": "macro",
+          "affects": "primary silhouette",
+          "mapsTo": {
+            "type": "component.localFeatures",
+            "ref": "swept-profile"
+          },
+          "evidenceRef": "detail-inventory/zone-r0c1.png",
+          "confidence": 0.98,
+          "priority": "critical",
+          "componentRef": "kasagi",
+          "realization": "component.localFeatures"
+        },
+        {
+          "id": "kasagi-bevel",
+          "kind": "bevel",
+          "description": "broad bevel catching light along cap edges",
+          "region": {
+            "x": 0.14,
+            "y": 0.03,
+            "width": 0.72,
+            "height": 0.16,
+            "units": "normalized"
+          },
+          "scale": "meso",
+          "affects": "cap highlight",
+          "mapsTo": {
+            "type": "component.localFeatures",
+            "ref": "edge-bevel"
+          },
+          "evidenceRef": "detail-inventory/zone-r0c1.png",
+          "confidence": 0.9,
+          "priority": "important",
+          "componentRef": "kasagi",
+          "realization": "component.localFeatures"
+        },
+        {
+          "id": "shimagi-layer",
+          "kind": "seam",
+          "description": "vermilion beam layer directly beneath dark cap",
+          "region": {
+            "x": 0.17,
+            "y": 0.13,
+            "width": 0.66,
+            "height": 0.13,
+            "units": "normalized"
+          },
+          "scale": "meso",
+          "affects": "upper beam hierarchy",
+          "mapsTo": {
+            "type": "component.localFeatures",
+            "ref": "layer-seam"
+          },
+          "evidenceRef": "detail-inventory/zone-r0c1.png",
+          "confidence": 0.96,
+          "priority": "important",
+          "componentRef": "shimagi",
+          "realization": "component.localFeatures"
+        },
+        {
+          "id": "post-taper",
+          "kind": "contour",
+          "description": "two shafts widen subtly toward stone collars",
+          "region": {
+            "x": 0.28,
+            "y": 0.2,
+            "width": 0.48,
+            "height": 0.58,
+            "units": "normalized"
+          },
+          "scale": "macro",
+          "affects": "post silhouette",
+          "mapsTo": {
+            "type": "component.localFeatures",
+            "ref": "taper"
+          },
+          "evidenceRef": "detail-inventory/zone-r1c1.png",
+          "confidence": 0.94,
+          "priority": "critical",
+          "componentRef": "posts",
+          "realization": "component.localFeatures"
+        },
+        {
+          "id": "nuki-projection",
+          "kind": "ridge",
+          "description": "mid beam projects beyond both post axes",
+          "region": {
+            "x": 0.12,
+            "y": 0.28,
+            "width": 0.76,
+            "height": 0.2,
+            "units": "normalized"
+          },
+          "scale": "macro",
+          "affects": "cross-beam silhouette",
+          "mapsTo": {
+            "type": "component.localFeatures",
+            "ref": "projecting-ends"
+          },
+          "evidenceRef": "detail-inventory/zone-r1c1.png",
+          "confidence": 0.98,
+          "priority": "critical",
+          "componentRef": "nuki",
+          "realization": "component.localFeatures"
+        },
+        {
+          "id": "gakuzuka",
+          "kind": "ridge",
+          "description": "central vertical support between nuki and shimagi",
+          "region": {
+            "x": 0.46,
+            "y": 0.18,
+            "width": 0.1,
+            "height": 0.26,
+            "units": "normalized"
+          },
+          "scale": "meso",
+          "affects": "central joinery",
+          "mapsTo": {
+            "type": "component.localFeatures",
+            "ref": "gakuzuka"
+          },
+          "evidenceRef": "detail-inventory/zone-r0c1.png",
+          "confidence": 0.95,
+          "priority": "important",
+          "componentRef": "cross-beams",
+          "realization": "component.localFeatures"
+        },
+        {
+          "id": "tie-blocks",
+          "kind": "fastener",
+          "description": "mirrored rectangular joinery blocks near post heads",
+          "region": {
+            "x": 0.25,
+            "y": 0.18,
+            "width": 0.52,
+            "height": 0.18,
+            "units": "normalized"
+          },
+          "scale": "meso",
+          "affects": "beam attachment",
+          "mapsTo": {
+            "type": "component.localFeatures",
+            "ref": "tie-blocks"
+          },
+          "evidenceRef": "detail-inventory/zone-r0c1.png",
+          "confidence": 0.93,
+          "priority": "important",
+          "componentRef": "joinery",
+          "realization": "component.localFeatures"
+        },
+        {
+          "id": "stone-steps",
+          "kind": "bevel",
+          "description": "two-tier stone foundations with chamfered square footings",
+          "region": {
+            "x": 0.22,
+            "y": 0.73,
+            "width": 0.58,
+            "height": 0.25,
+            "units": "normalized"
+          },
+          "scale": "meso",
+          "affects": "grounded silhouette",
+          "mapsTo": {
+            "type": "component.localFeatures",
+            "ref": "stepped-bevels"
+          },
+          "evidenceRef": "detail-inventory/zone-r2c1.png",
+          "confidence": 0.97,
+          "priority": "important",
+          "componentRef": "foundations",
+          "realization": "component.localFeatures"
+        },
+        {
+          "id": "paint-wear",
+          "kind": "scratch",
+          "description": "subtle darker vertical wear on vermilion posts and beams",
+          "region": {
+            "x": 0.2,
+            "y": 0.12,
+            "width": 0.62,
+            "height": 0.66,
+            "units": "normalized"
+          },
+          "scale": "micro",
+          "affects": "paint material variation",
+          "mapsTo": {
+            "type": "material.localOverrides",
+            "ref": "edge-wear"
+          },
+          "evidenceRef": "detail-inventory/zone-r1c1.png",
+          "confidence": 0.76,
+          "priority": "important",
+          "componentRef": "vermilion",
+          "realization": "material.localOverrides"
+        }
+      ]
+    },
+    "anatomy": {
+      "applies": false,
+      "styleHeads": 0,
+      "proportions": {
+        "headUnit": 0,
+        "torso": 0,
+        "legs": 0,
+        "shoulderWidth": 0,
+        "hipWidth": 0
+      },
+      "pose": {
+        "type": "unassessed",
+        "jointAngles": {}
+      },
+      "faceLandmarks": {
+        "eyeLine": 0,
+        "eyeSpacing": 0,
+        "noseBase": 0,
+        "mouthLine": 0,
+        "hairline": 0
+      },
+      "features": [],
+      "confidence": 0,
+      "note": "Only meaningful when objectClass.primaryDomain is character or hybrid. Set applies=true and fill from forge/stage1_intake/extract_landmarks.py. See grimoire/character/reconstruction.md and grimoire/character/likeness_maximization.md."
+    },
+    "sourceImage": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\reference.png"
+  },
+  "qualityContract": {
+    "qualityBar": "moderate",
+    "definitionOfDone": [
+      "Front and three-quarter renders preserve the reference gate opening, tapered posts, projecting nuki, centered support, layered vermilion beams, strongly upturned dark cap and stepped granite bases.",
+      "The centered root supports a clean camera pass-through while the model remains below 20k triangles and 18 draw calls."
+    ],
+    "minimumSpecDepth": {
+      "macroComponents": 2,
+      "mesoComponents": 3,
+      "microFeatureGroups": 2,
+      "materialLayers": 2,
+      "repetitionSystems": 2,
+      "reviewViewpoints": 3
+    },
+    "featureGroups": [
+      {
+        "id": "overall-silhouette",
+        "name": "Overall silhouette and proportions",
+        "required": true,
+        "qualityCriteria": [
+          "Bounding shape, dominant curves, negative spaces, and scale relationships are explicitly described."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "model reads as a generic placeholder instead of the reference object",
+          "major proportions are guessed without evidence"
+        ]
+      },
+      {
+        "id": "primary-structure",
+        "name": "Primary structure and hierarchy",
+        "required": true,
+        "qualityCriteria": [
+          "Major parts, joints, seams, contact points, and parent-child relationships are named before code generation."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "large visible parts are merged into one mesh",
+          "component hierarchy is too shallow for the observed complexity"
+        ]
+      },
+      {
+        "id": "attachment-joint-correctness",
+        "name": "Attachment and joint correctness",
+        "required": true,
+        "qualityCriteria": [
+          "Every visible child appendage, branch, limb, handle, connector, tube, cable, horn, wing, leg, or hinged part has an attachment contract with parent socket, localStart/localEnd, contact type, embed/overlap, and gap tolerance."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "child part root floats away from the parent",
+          "branch/limb/tube is centered in space instead of pivoting from its root",
+          "parent-child transform mixes world and local coordinates"
+        ]
+      },
+      {
+        "id": "surface-material-response",
+        "name": "Surface material response",
+        "required": true,
+        "qualityCriteria": [
+          "Albedo zones, roughness, normal/bump/displacement intent, cavity dirt, edge wear, and local overrides are specified where visible.",
+          "Important materials define independent albedo, roughness, height/normal, and AO responses instead of reusing one texture for unrelated PBR channels.",
+          "Surface response is decomposed into macro, meso, and micro frequency bands with scale and amplitude tied to object scale."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "surface looks like flat plastic",
+          "local material variation is missing or not tied to image evidence"
+        ]
+      },
+      {
+        "id": "reference-lookdev",
+        "name": "Reference color, material, and lighting response",
+        "required": true,
+        "qualityCriteria": [
+          "Material-pass names the reference-derived albedo palette, roughness variation, tactile normal/bump/displacement response, and local masks.",
+          "When a source image is available, run reference PBR extraction and require confidence >= 0.7 before treating maps as implementation-ready.",
+          "Lighting-pass names key/fill/rim or environment light, exposure, tone mapping, background, and contact shadow behavior.",
+          "Neutral, grazing-angle, and reference-matched renders prove that surface relief survives relighting and is not painted into albedo."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "model has acceptable shape but reads as flat shaded or plastic",
+          "colors are a generic average instead of reference-observed local color zones",
+          "lighting is evenly ambient and cannot reproduce the source value range"
+        ]
+      }
+    ],
+    "visualDeltaChecks": [
+      "silhouette and negative-space delta",
+      "component hierarchy depth delta",
+      "repetition density and distribution delta",
+      "material albedo/roughness/normal response delta",
+      "local feature placement and scale delta"
+    ],
+    "antiShallowSpecRules": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md).",
+      "Adjacent components must overlap by at least 0.02 world units at shared seams (source: grimoire/build/geometry_patterns.md).",
+      "Raised or recessed relief and fasteners must be geometry, instanced micro-parts, or displacement; a map alone is an approximation (source: grimoire/build/geometry_patterns.md)."
+    ],
+    "mustNotDo": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md).",
+      "Adjacent components must overlap by at least 0.02 world units at shared seams (source: grimoire/build/geometry_patterns.md).",
+      "Raised or recessed relief and fasteners must be geometry, instanced micro-parts, or displacement; a map alone is an approximation (source: grimoire/build/geometry_patterns.md)."
+    ]
+  },
+  "qualityTargets": {
+    "targetFidelity": 0.7,
+    "mustMatch": [
+      "macro silhouette and proportions",
+      "primary material albedo/roughness response",
+      "reference-derived PBR material response at or above 0.7 confidence when source pixels are usable",
+      "most recognizable local features"
+    ],
+    "niceToHave": [
+      "micro scratches, stains, chips, and dirt masks",
+      "secondary lighting match"
+    ],
+    "fpsTarget": 60,
+    "reviewViewpoints": [
+      "front",
+      "three-quarter",
+      "side",
+      "thickness-axis",
+      "long-axis"
+    ]
+  },
+  "selfCorrectLoop": {
+    "enabled": true,
+    "visualAcceptance": {
+      "reviewer": "ai-vision",
+      "threshold": 0.7,
+      "comparisonArtifactRequired": true,
+      "layerScoresRequired": true,
+      "codePixelDiffIsAcceptanceAuthority": false,
+      "scoringRule": "AI vision must inspect a side-by-side reference/render sheet and score the current pass from 0 to 1. Pixel-diff code may assist diagnostics but cannot approve a pass.",
+      "requiredLayerScores": [
+        "silhouetteProportion",
+        "componentStructure",
+        "formDetail",
+        "materialSurface",
+        "lightingCamera"
+      ],
+      "featureReviewPolicy": {
+        "enabled": true,
+        "reviewUnit": "semantic-subsystem",
+        "maxCriticalFeaturesPerPass": 5,
+        "maxImportantFeaturesPerPass": 3,
+        "criticalDefaultThreshold": 0.8,
+        "importantAverageThreshold": 0.65,
+        "adaptiveEscalation": true,
+        "singleImagePairOnly": true,
+        "selectionRule": "Choose only the most visually salient, identity-defining, user-prioritized, or high-risk semantic systems. Group repeated parts instead of reviewing every mesh. AI vision scores every selected feature from the same full reference/render pair."
+      }
+    },
+    "reviewAfterPasses": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "surface-pass",
+      "lighting-pass",
+      "interaction-pass",
+      "optimization-pass"
+    ],
+    "allowedActions": [
+      "continue",
+      "refine-spec",
+      "refine-code",
+      "request-input",
+      "stop"
+    ],
+    "specRefineTriggers": [
+      "missing component",
+      "wrong primitive family",
+      "wrong proportions",
+      "material layer under-specified",
+      "local feature not traceable to viewEvidence",
+      "reference ambiguity discovered during implementation"
+    ],
+    "codeRefineTriggers": [
+      "spec is adequate but generated geometry/material does not match",
+      "browser render differs from reference",
+      "performance budget exceeded",
+      "lighting hides geometry or material response"
+    ],
+    "stopCriteria": [
+      "target fidelity reached or user accepts current approximation",
+      "remaining gaps require new reference images or manual art"
+    ],
+    "screenshotPolicy": {
+      "requiredForPasses": [
+        "blockout",
+        "structural-pass",
+        "form-refinement",
+        "material-pass",
+        "surface-pass",
+        "lighting-pass",
+        "interaction-pass"
+      ],
+      "preferredCapture": "in-app-browser-screenshot",
+      "fallbackCapture": "user-supplied-screenshot-path",
+      "minimumEvidence": "Each visual pass needs a reference image, rendered screenshot, side-by-side comparison sheet, AI vision score, layer scores, and critique before choosing continue.",
+      "reviewPairRule": "Compare the same camera/viewpoint whenever possible; do not judge a front reference against a random render angle.",
+      "acceptanceAuthority": "AI vision review of the comparison sheet. Code-generated pixel similarity is not sufficient evidence."
+    }
+  },
+  "featureReviewTargets": [
+    {
+      "id": "torii-portal-silhouette",
+      "name": "Tapered posts and tall central portal",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "form-refinement"
+      ],
+      "minimumScore": 0.84,
+      "mustPass": true,
+      "componentRefs": [
+        "root",
+        "posts"
+      ],
+      "evidenceRefs": [
+        "full-object"
+      ]
+    },
+    {
+      "id": "torii-swept-crown",
+      "name": "Upturned charcoal kasagi over layered vermilion beam",
+      "tier": "critical",
+      "passIds": [
+        "structural-pass",
+        "form-refinement"
+      ],
+      "minimumScore": 0.82,
+      "mustPass": true,
+      "componentRefs": [
+        "kasagi",
+        "shimagi"
+      ],
+      "evidenceRefs": [
+        "full-object"
+      ]
+    },
+    {
+      "id": "torii-grounded-joinery",
+      "name": "Crossbeam joinery and stepped stone feet",
+      "tier": "important",
+      "passIds": [
+        "structural-pass",
+        "material-pass"
+      ],
+      "minimumScore": 0.77,
+      "mustPass": false,
+      "componentRefs": [
+        "nuki",
+        "cross-beams",
+        "joinery",
+        "foundations"
+      ],
+      "evidenceRefs": [
+        "full-object"
+      ]
+    }
+  ],
+  "sculptPipeline": {
+    "passGateMode": "locked-sequential",
+    "passOrder": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "surface-pass",
+      "lighting-pass",
+      "interaction-pass",
+      "optimization-pass"
+    ],
+    "currentPass": "blockout",
+    "completedPasses": [],
+    "lastCompletedPass": "",
+    "blockedReason": "",
+    "nextRequiredEvidence": [
+      "Silhouette reads correctly without materials.",
+      "Quality contract has named all required macro feature groups before code generation.",
+      "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold.",
+      "browser render screenshot from your agent's browser/screenshot tool",
+      "side-by-side reference/render comparison sheet for AI vision review",
+      "banded interior difference vs the reference baseline (forge/stage4_review/interior_difference.py --from/--to per region)",
+      "AI vision score at or above the visual acceptance threshold",
+      "all critical semantic feature scores from the shared image pair at or above their thresholds",
+      "self-correction review appended with action=continue before the next pass"
+    ]
+  },
+  "lookDevTargets": {
+    "qualityPriority": "reference-fidelity",
+    "materialPass": {
+      "albedoPaletteRequired": true,
+      "roughnessVariationRequired": true,
+      "normalOrBumpRequired": true,
+      "localOverridesRequired": true,
+      "minimumTextureResolution": 1024,
+      "preferredTextureResolution": 2048,
+      "independentMapChannels": [
+        "albedo",
+        "roughness",
+        "height",
+        "normal",
+        "ambient-occlusion"
+      ],
+      "requiredSurfaceFrequencyBands": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "geometryReliefRequiredWhenSilhouetteAffected": true,
+      "referencePbrExtraction": {
+        "requiredWhenSourceImagePresent": true,
+        "targetThreshold": 0.7,
+        "stopOnLowConfidence": true,
+        "script": "forge/stage1_intake/extract_pbr_evidence.py",
+        "acceptedLimitation": "single-image extraction is reference-derived inference, not exact photogrammetry"
+      },
+      "mustAvoid": [
+        "single flat albedo per material",
+        "uniform roughness",
+        "albedo texture reused as roughness/height/normal/AO",
+        "single-frequency random noise",
+        "plastic-looking smooth bark, stone, cloth, foliage, or aged material",
+        "local color/detail described only in prose without material masks",
+        "claiming exact PBR recovery when confidence is below the target threshold"
+      ]
+    },
+    "lightingPass": {
+      "requiredTerms": [
+        "key light",
+        "fill light",
+        "rim or environment light",
+        "exposure",
+        "tone mapping",
+        "background",
+        "contact shadow"
+      ],
+      "mustAvoid": [
+        "ambient-only lighting",
+        "flat value range",
+        "missing contact shadow",
+        "reference lighting copied without separating material readability"
+      ]
+    },
+    "screenshotReview": [
+      "Compare albedo palette and local color zones.",
+      "Compare roughness/normal/bump response under light.",
+      "Compare cavity dirt, edge wear, stains, moss, scratches, or other local masks.",
+      "Compare key/fill/rim structure, exposure, tone mapping, background, and contact shadows.",
+      "Capture a neutral-light render to verify material readability without reference lighting.",
+      "Capture a grazing-light close-up to expose flat normals, uniform roughness, tiling, and plastic highlights.",
+      "Capture a reference-matched render from the same camera framing as the source."
+    ]
+  },
+  "actionReadiness": {
+    "contract": "Every macro/meso component should be generated as a stable named Object3D pivot node with a mesh child, action metadata, optional sockets, collider proxy, and destruction metadata.",
+    "defaultRigType": "action-ready-static-rig",
+    "rootMotionNode": "root",
+    "requiredComponentFields": [
+      "id",
+      "parent",
+      "transform",
+      "attachment for child appendages, connectors, limbs, tubes, handles, legs, horns, wings, branches, or cables",
+      "actionProfile.animationRole",
+      "actionProfile.pivot",
+      "actionProfile.collider",
+      "actionProfile.destruction"
+    ],
+    "transformChannels": [
+      "translate",
+      "rotate",
+      "scale",
+      "bend",
+      "twist",
+      "detach",
+      "visibility",
+      "material-state"
+    ],
+    "authoringRules": [
+      "Do not collapse independently movable parts into one mesh.",
+      "Put transforms on component pivot groups, not only on raw meshes.",
+      "For attached child parts, put the pivot at the semantic root/socket and build visible geometry from localStart to localEnd.",
+      "Represent hinge, socket, detachable, and breakable intent even when no animation is implemented yet.",
+      "Use simplified collider proxies for runtime physics instead of visual mesh colliders by default."
+    ],
+    "destructionPolicy": {
+      "defaultBreakable": false,
+      "fractureGroupNaming": "Use stable semantic names such as body-shell, left-hinge, glass-panel, branch-segment.",
+      "debrisStrategy": "Prefer detachable component groups and a small number of procedural fragments over random mesh explosion."
+    }
+  },
+  "assumptions": [
+    "Single-view stylized reconstruction; hidden rear joinery continues the visible cross-sections.",
+    "Gate proportions are normalized for browser staging rather than historical survey accuracy."
+  ],
+  "coordinateFrame": {
+    "front": "camera-facing side in the reference image",
+    "up": "image up direction",
+    "scaleReference": "unit scale; adjust after first browser render"
+  },
+  "silhouette": {
+    "boundingShape": "wide layered crown over two tapered vertical supports",
+    "aspectRatios": [
+      "overall width:height = 0.96",
+      "portal width:overall width = 0.54"
+    ],
+    "symmetry": "strong bilateral symmetry around the portal axis",
+    "dominantCurves": [
+      "upturned kasagi ends",
+      "gentle shimagi sweep",
+      "subtle outward post taper"
+    ],
+    "negativeSpaces": [
+      "large central portal",
+      "small beam-layer gaps",
+      "post-to-foundation shadow gaps"
+    ],
+    "landmarks": [
+      "charcoal crown",
+      "vermilion posts",
+      "projecting nuki",
+      "stepped stone plinths"
+    ]
+  },
+  "viewEvidence": [
+    {
+      "id": "full-object",
+      "view": "primary-front-three-quarter",
+      "imageRegion": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1,
+        "units": "normalized"
+      },
+      "observations": [
+        "Front three-quarter studio view clearly shows layered crown, post taper, joinery and footings.",
+        "Rear joinery depth is inferred from the visible side faces and architectural symmetry."
+      ],
+      "confidence": 0.86
+    }
+  ],
+  "componentTree": [
+    {
+      "id": "root",
+      "name": "Torii gate assembly",
+      "level": "macro",
+      "role": "architectural-root",
+      "importance": 0.8,
+      "confidence": 0.82,
+      "primitive": "box",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "A discrete rigid part with countable faces and stable assembly seams.",
+      "geometryDescriptor": {
+        "topologyIntent": "symmetrical timber gate assembled around a large central portal",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.035,
+          "segments": 3
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "weighted vertex normals from generated geometry"
+      },
+      "parent": null,
+      "attachment": null,
+      "dimensions": {
+        "width": 3.2,
+        "height": 3.35,
+        "depth": 0.46,
+        "units": "relative",
+        "confidence": 0.82
+      },
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "root",
+        "pivot": {
+          "mode": "explicit",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.82
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [
+          {
+            "id": "left-post-head",
+            "position": [
+              -0.9,
+              1.2,
+              0
+            ]
+          },
+          {
+            "id": "right-post-head",
+            "position": [
+              0.9,
+              1.2,
+              0
+            ]
+          }
+        ],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Simplified runtime proxy attached to this semantic pivot."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0,
+          "debrisMaterial": "vermilion"
+        }
+      },
+      "material": "vermilion",
+      "materialLayers": [
+        "vermilion",
+        "charcoal",
+        "stone"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "portal-negative-space",
+          "description": "Tall central opening remains the primary compositional void.",
+          "confidence": 0.82,
+          "level": "macro",
+          "evidence": [
+            "full-object"
+          ]
+        },
+        {
+          "id": "joinery-shadow",
+          "description": "Layered beam intersections create compact dark contact shadows.",
+          "confidence": 0.82,
+          "level": "micro",
+          "evidence": [
+            "full-object"
+          ]
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0,
+        "microRoughness": 0,
+        "bumpAmplitude": 0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "refined",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(208, 64, 41, 1.0)",
+        "secondaryAlbedo": "rgba(122, 29, 16, 1.0)",
+        "materialClass": "wood",
+        "materialClassConfidence": 0.82,
+        "evidence": [
+          "full-object"
+        ],
+        "samplingNotes": "Color zones sampled from the admitted single-view reference; lighting falloff is treated separately."
+      }
+    },
+    {
+      "id": "posts",
+      "name": "Paired tapered posts",
+      "level": "macro",
+      "role": "structural-post-pair",
+      "importance": 0.8,
+      "confidence": 0.82,
+      "primitive": "cylinder",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "A discrete rigid part with countable faces and stable assembly seams.",
+      "geometryDescriptor": {
+        "topologyIntent": "two slightly tapered polygonal timber shafts",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.035,
+          "segments": 3
+        },
+        "deformationStack": [
+          {
+            "type": "taper",
+            "axis": "y",
+            "factor": 1.13,
+            "notes": "posts widen subtly toward the stone collars"
+          }
+        ],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "weighted vertex normals from generated geometry"
+      },
+      "parent": "root",
+      "attachment": {
+        "parentId": "root",
+        "parentSocket": "root-posts-socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.2,
+          0
+        ],
+        "contactType": "embedded-joint",
+        "overlap": 0.025,
+        "gapTolerance": 0.008,
+        "evidenceRefs": [
+          "full-object"
+        ]
+      },
+      "dimensions": {
+        "width": 1.92,
+        "height": 2.75,
+        "depth": 0.34,
+        "units": "relative",
+        "confidence": 0.82
+      },
+      "transform": {
+        "position": [
+          0,
+          -0.12,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "explicit",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.82
+        },
+        "transformChannels": {
+          "translate": false,
+          "rotate": false,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Simplified runtime proxy attached to this semantic pivot."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "posts",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0,
+          "debrisMaterial": "vermilion"
+        }
+      },
+      "material": "vermilion",
+      "materialLayers": [
+        "vermilion"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "taper",
+          "description": "Two shafts widen subtly toward the bases.",
+          "confidence": 0.82,
+          "level": "macro",
+          "evidence": [
+            "full-object"
+          ]
+        },
+        {
+          "id": "vertical-wear",
+          "description": "Subtle darker vertical paint wear follows the grain direction.",
+          "confidence": 0.82,
+          "level": "micro",
+          "evidence": [
+            "full-object"
+          ]
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0,
+        "microRoughness": 0,
+        "bumpAmplitude": 0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "refined",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(208, 64, 41, 1.0)",
+        "secondaryAlbedo": "rgba(225, 85, 62, 1.0)",
+        "materialClass": "wood",
+        "materialClassConfidence": 0.82,
+        "evidence": [
+          "full-object"
+        ],
+        "samplingNotes": "Color zones sampled from the admitted single-view reference; lighting falloff is treated separately."
+      }
+    },
+    {
+      "id": "kasagi",
+      "name": "Swept charcoal crown beam",
+      "level": "macro",
+      "role": "crown-beam",
+      "importance": 0.8,
+      "confidence": 0.82,
+      "primitive": "extrude",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "The silhouette is a single shallow swept profile with continuously upturned ends, best represented by an extrusion rather than stacked boxes.",
+      "geometryDescriptor": {
+        "topologyIntent": "shallow curved extrusion with lifted tips and a broad bevel",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.035,
+          "segments": 3
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "weighted vertex normals from generated geometry"
+      },
+      "parent": "root",
+      "attachment": {
+        "parentId": "root",
+        "parentSocket": "root-kasagi-socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.2,
+          0
+        ],
+        "contactType": "embedded-joint",
+        "overlap": 0.025,
+        "gapTolerance": 0.008,
+        "evidenceRefs": [
+          "full-object"
+        ]
+      },
+      "dimensions": {
+        "width": 3.2,
+        "height": 0.34,
+        "depth": 0.5,
+        "units": "relative",
+        "confidence": 0.82
+      },
+      "transform": {
+        "position": [
+          0,
+          1.53,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "explicit",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.82
+        },
+        "transformChannels": {
+          "translate": false,
+          "rotate": false,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Simplified runtime proxy attached to this semantic pivot."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "kasagi",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0,
+          "debrisMaterial": "charcoal"
+        }
+      },
+      "material": "charcoal",
+      "materialLayers": [
+        "charcoal"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "swept-profile",
+          "description": "Symmetric charcoal crown lifts at both ends.",
+          "confidence": 0.82,
+          "level": "macro",
+          "evidence": [
+            "full-object"
+          ]
+        },
+        {
+          "id": "edge-bevel",
+          "description": "Broad bevel catches a cool highlight along the cap.",
+          "confidence": 0.82,
+          "level": "meso",
+          "evidence": [
+            "full-object"
+          ]
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0,
+        "microRoughness": 0,
+        "bumpAmplitude": 0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "refined",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(39, 32, 32, 1.0)",
+        "secondaryAlbedo": "rgba(79, 78, 80, 1.0)",
+        "materialClass": "wood",
+        "materialClassConfidence": 0.82,
+        "evidence": [
+          "full-object"
+        ],
+        "samplingNotes": "Color zones sampled from the admitted single-view reference; lighting falloff is treated separately."
+      }
+    },
+    {
+      "id": "shimagi",
+      "name": "Vermilion upper beam",
+      "level": "meso",
+      "role": "secondary-crown-beam",
+      "importance": 0.8,
+      "confidence": 0.82,
+      "primitive": "extrude",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "A discrete rigid part with countable faces and stable assembly seams.",
+      "geometryDescriptor": {
+        "topologyIntent": "thin beam with gently lifted ends under the charcoal cap",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.035,
+          "segments": 3
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "weighted vertex normals from generated geometry"
+      },
+      "parent": "root",
+      "attachment": {
+        "parentId": "root",
+        "parentSocket": "root-shimagi-socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.2,
+          0
+        ],
+        "contactType": "embedded-joint",
+        "overlap": 0.025,
+        "gapTolerance": 0.008,
+        "evidenceRefs": [
+          "full-object"
+        ]
+      },
+      "dimensions": {
+        "width": 2.9,
+        "height": 0.22,
+        "depth": 0.4,
+        "units": "relative",
+        "confidence": 0.82
+      },
+      "transform": {
+        "position": [
+          0,
+          1.28,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "explicit",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.82
+        },
+        "transformChannels": {
+          "translate": false,
+          "rotate": false,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Simplified runtime proxy attached to this semantic pivot."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "shimagi",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0,
+          "debrisMaterial": "vermilion"
+        }
+      },
+      "material": "vermilion",
+      "materialLayers": [
+        "vermilion"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "layer-seam",
+          "description": "A readable shadow seam separates shimagi from the charcoal crown.",
+          "confidence": 0.82,
+          "level": "meso",
+          "evidence": [
+            "full-object"
+          ]
+        },
+        {
+          "id": "end-taper",
+          "description": "Beam ends slim and lift slightly beyond the posts.",
+          "confidence": 0.82,
+          "level": "micro",
+          "evidence": [
+            "full-object"
+          ]
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0,
+        "microRoughness": 0,
+        "bumpAmplitude": 0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "refined",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(208, 64, 41, 1.0)",
+        "secondaryAlbedo": "rgba(225, 85, 62, 1.0)",
+        "materialClass": "wood",
+        "materialClassConfidence": 0.82,
+        "evidence": [
+          "full-object"
+        ],
+        "samplingNotes": "Color zones sampled from the admitted single-view reference; lighting falloff is treated separately."
+      }
+    },
+    {
+      "id": "nuki",
+      "name": "Projecting lower crossbeam",
+      "level": "macro",
+      "role": "crossbeam",
+      "importance": 0.8,
+      "confidence": 0.82,
+      "primitive": "box",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "A discrete rigid part with countable faces and stable assembly seams.",
+      "geometryDescriptor": {
+        "topologyIntent": "bevel-ready hard-surface form",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.035,
+          "segments": 3
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "weighted vertex normals from generated geometry"
+      },
+      "parent": "posts",
+      "attachment": {
+        "parentId": "posts",
+        "parentSocket": "posts-nuki-socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.2,
+          0
+        ],
+        "contactType": "embedded-joint",
+        "overlap": 0.025,
+        "gapTolerance": 0.008,
+        "evidenceRefs": [
+          "full-object"
+        ]
+      },
+      "dimensions": {
+        "width": 2.65,
+        "height": 0.25,
+        "depth": 0.32,
+        "units": "relative",
+        "confidence": 0.82
+      },
+      "transform": {
+        "position": [
+          0,
+          0.72,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "explicit",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.82
+        },
+        "transformChannels": {
+          "translate": false,
+          "rotate": false,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Simplified runtime proxy attached to this semantic pivot."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "nuki",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0,
+          "debrisMaterial": "vermilion"
+        }
+      },
+      "material": "vermilion",
+      "materialLayers": [
+        "vermilion"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "projecting-ends",
+          "description": "Mid beam projects beyond both post axes.",
+          "confidence": 0.82,
+          "level": "macro",
+          "evidence": [
+            "full-object"
+          ]
+        },
+        {
+          "id": "underside-shadow",
+          "description": "Dark underside makes the beam depth legible.",
+          "confidence": 0.82,
+          "level": "micro",
+          "evidence": [
+            "full-object"
+          ]
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0,
+        "microRoughness": 0,
+        "bumpAmplitude": 0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "refined",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(208, 64, 41, 1.0)",
+        "secondaryAlbedo": "rgba(122, 29, 16, 1.0)",
+        "materialClass": "wood",
+        "materialClassConfidence": 0.82,
+        "evidence": [
+          "full-object"
+        ],
+        "samplingNotes": "Color zones sampled from the admitted single-view reference; lighting falloff is treated separately."
+      }
+    },
+    {
+      "id": "cross-beams",
+      "name": "Central gakuzuka support",
+      "level": "meso",
+      "role": "central-support",
+      "importance": 0.8,
+      "confidence": 0.82,
+      "primitive": "box",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "A discrete rigid part with countable faces and stable assembly seams.",
+      "geometryDescriptor": {
+        "topologyIntent": "bevel-ready hard-surface form",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.035,
+          "segments": 3
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "weighted vertex normals from generated geometry"
+      },
+      "parent": "nuki",
+      "attachment": {
+        "parentId": "nuki",
+        "parentSocket": "nuki-cross-beams-socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.2,
+          0
+        ],
+        "contactType": "embedded-joint",
+        "overlap": 0.025,
+        "gapTolerance": 0.008,
+        "evidenceRefs": [
+          "full-object"
+        ]
+      },
+      "dimensions": {
+        "width": 0.24,
+        "height": 0.58,
+        "depth": 0.25,
+        "units": "relative",
+        "confidence": 0.82
+      },
+      "transform": {
+        "position": [
+          0,
+          1.02,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "explicit",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.82
+        },
+        "transformChannels": {
+          "translate": false,
+          "rotate": false,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Simplified runtime proxy attached to this semantic pivot."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "cross-beams",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0,
+          "debrisMaterial": "charcoal"
+        }
+      },
+      "material": "charcoal",
+      "materialLayers": [
+        "charcoal"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "gakuzuka",
+          "description": "Central vertical support locks the nuki to the upper beam.",
+          "confidence": 0.82,
+          "level": "meso",
+          "evidence": [
+            "full-object"
+          ]
+        },
+        {
+          "id": "cap-shadow",
+          "description": "Narrow top overlap creates a concentrated contact shadow.",
+          "confidence": 0.82,
+          "level": "micro",
+          "evidence": [
+            "full-object"
+          ]
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0,
+        "microRoughness": 0,
+        "bumpAmplitude": 0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "refined",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(39, 32, 32, 1.0)",
+        "secondaryAlbedo": "rgba(122, 29, 16, 1.0)",
+        "materialClass": "wood",
+        "materialClassConfidence": 0.82,
+        "evidence": [
+          "full-object"
+        ],
+        "samplingNotes": "Color zones sampled from the admitted single-view reference; lighting falloff is treated separately."
+      }
+    },
+    {
+      "id": "joinery",
+      "name": "Mirrored head tie blocks",
+      "level": "meso",
+      "role": "joinery-pair",
+      "importance": 0.8,
+      "confidence": 0.82,
+      "primitive": "box",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "A discrete rigid part with countable faces and stable assembly seams.",
+      "geometryDescriptor": {
+        "topologyIntent": "bevel-ready hard-surface form",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.035,
+          "segments": 3
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "weighted vertex normals from generated geometry"
+      },
+      "parent": "posts",
+      "attachment": {
+        "parentId": "posts",
+        "parentSocket": "posts-joinery-socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.2,
+          0
+        ],
+        "contactType": "embedded-joint",
+        "overlap": 0.025,
+        "gapTolerance": 0.008,
+        "evidenceRefs": [
+          "full-object"
+        ]
+      },
+      "dimensions": {
+        "width": 2.05,
+        "height": 0.32,
+        "depth": 0.46,
+        "units": "relative",
+        "confidence": 0.82
+      },
+      "transform": {
+        "position": [
+          0,
+          1.14,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "explicit",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.82
+        },
+        "transformChannels": {
+          "translate": false,
+          "rotate": false,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Simplified runtime proxy attached to this semantic pivot."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "joinery",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0,
+          "debrisMaterial": "charcoal"
+        }
+      },
+      "material": "charcoal",
+      "materialLayers": [
+        "charcoal"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "tie-blocks",
+          "description": "Mirrored rectangular joinery blocks sit beside the post heads.",
+          "confidence": 0.82,
+          "level": "meso",
+          "evidence": [
+            "full-object"
+          ]
+        },
+        {
+          "id": "fastener-caps",
+          "description": "Small dark end caps punctuate the beam intersections.",
+          "confidence": 0.82,
+          "level": "micro",
+          "evidence": [
+            "full-object"
+          ]
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0,
+        "microRoughness": 0,
+        "bumpAmplitude": 0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "refined",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(39, 32, 32, 1.0)",
+        "secondaryAlbedo": "rgba(79, 78, 80, 1.0)",
+        "materialClass": "wood",
+        "materialClassConfidence": 0.82,
+        "evidence": [
+          "full-object"
+        ],
+        "samplingNotes": "Color zones sampled from the admitted single-view reference; lighting falloff is treated separately."
+      }
+    },
+    {
+      "id": "foundations",
+      "name": "Stepped stone foundations",
+      "level": "meso",
+      "role": "grounding-plinths",
+      "importance": 0.8,
+      "confidence": 0.82,
+      "primitive": "box",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "A discrete rigid part with countable faces and stable assembly seams.",
+      "geometryDescriptor": {
+        "topologyIntent": "bevel-ready hard-surface form",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.035,
+          "segments": 3
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "weighted vertex normals from generated geometry"
+      },
+      "parent": "posts",
+      "attachment": {
+        "parentId": "posts",
+        "parentSocket": "posts-foundations-socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.2,
+          0
+        ],
+        "contactType": "embedded-joint",
+        "overlap": 0.025,
+        "gapTolerance": 0.008,
+        "evidenceRefs": [
+          "full-object"
+        ]
+      },
+      "dimensions": {
+        "width": 2.15,
+        "height": 0.45,
+        "depth": 0.72,
+        "units": "relative",
+        "confidence": 0.82
+      },
+      "transform": {
+        "position": [
+          0,
+          -1.56,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "explicit",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.82
+        },
+        "transformChannels": {
+          "translate": false,
+          "rotate": false,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Simplified runtime proxy attached to this semantic pivot."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "foundations",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0,
+          "debrisMaterial": "stone"
+        }
+      },
+      "material": "stone",
+      "materialLayers": [
+        "stone"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "stepped-bevels",
+          "description": "Two-tier stone collars and chamfered square footings ground each post.",
+          "confidence": 0.82,
+          "level": "meso",
+          "evidence": [
+            "full-object"
+          ]
+        },
+        {
+          "id": "stone-pitting",
+          "description": "Sparse fine pits break the foundation highlights.",
+          "confidence": 0.82,
+          "level": "micro",
+          "evidence": [
+            "full-object"
+          ]
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0,
+        "microRoughness": 0,
+        "bumpAmplitude": 0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "refined",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(119, 120, 120, 1.0)",
+        "secondaryAlbedo": "rgba(79, 78, 80, 1.0)",
+        "materialClass": "stone",
+        "materialClassConfidence": 0.82,
+        "evidence": [
+          "full-object"
+        ],
+        "samplingNotes": "Color zones sampled from the admitted single-view reference; lighting falloff is treated separately."
+      }
+    }
+  ],
+  "materials": [
+    {
+      "id": "vermilion",
+      "name": "Weathered vermilion paint",
+      "type": "standard",
+      "shaderModel": "MeshStandardMaterial / PBR approximation",
+      "baseColor": "#D04029",
+      "color": "#D04029",
+      "albedo": {
+        "dominant": "#D04029",
+        "secondary": [
+          "#7A1D10",
+          "#D04029"
+        ],
+        "samplingNotes": "Palette is derived from the admitted source image; single-view inverse rendering remains approximate."
+      },
+      "colorVariation": {
+        "palette": [
+          "#D04029",
+          "#7A1D10"
+        ],
+        "pattern": "low-frequency directional mottle",
+        "amplitude": 0.147,
+        "heightCorrelation": 0.42
+      },
+      "textureResolution": 1024,
+      "textureProjection": {
+        "mode": "uv",
+        "repeat": [
+          2,
+          2
+        ],
+        "anisotropy": 8,
+        "texelDensityIntent": "Preserve stable world/object-scale detail; do not stretch micro detail with component scale."
+      },
+      "surfaceFrequencyBands": [
+        {
+          "id": "macro",
+          "frequency": 2,
+          "amplitude": 0.402,
+          "role": "reference-derived broad albedo and height breakup"
+        },
+        {
+          "id": "meso",
+          "frequency": 14,
+          "amplitude": 0.35,
+          "role": "reference-derived cracks, ridges, pores, grain, or leaf clusters"
+        },
+        {
+          "id": "micro",
+          "frequency": 72,
+          "amplitude": 0.14,
+          "role": "reference-derived micro highlight breakup under grazing light"
+        }
+      ],
+      "roughness": {
+        "base": 0.54,
+        "variation": 0.11,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_roughness.png",
+          "url": "base_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0,
+        "variation": 0
+      },
+      "normal": {
+        "pattern": "reference-derived height-gradient normal map",
+        "strength": 0.214,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_normal.png",
+          "url": "base_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "heightSource": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+          "url": "base_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "space": "tangent"
+      },
+      "bump": {
+        "pattern": "reference-derived height field",
+        "amplitude": 0.022,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+          "url": "base_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "displacement": {
+        "pattern": "none",
+        "amplitude": 0,
+        "scale": 1,
+        "silhouetteAffects": false
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_ao.png",
+          "url": "base_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0,
+        "cavityBias": 0,
+        "color": "#2F2A22"
+      },
+      "localOverrides": [
+        {
+          "id": "edge-wear",
+          "description": "Subtle darker vertical wear and lighter bevel response on posts and beams.",
+          "confidence": 0.76
+        }
+      ],
+      "shaderNotes": [
+        "Prefer MeshPhysicalMaterial when clearcoat, sheen, transmission, or thin-surface response is observed; otherwise use MeshStandardMaterial-compatible PBR channels.",
+        "Generate albedo, roughness, height/normal, and AO independently; never alias albedo into roughness.",
+        "Use normal/bump/displacement only when they map to observed surface relief.",
+        "Use displacement geometry when the observed relief changes the close-up silhouette; texture-only relief is insufficient there.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Stylized PBR reconstruction from one reference view; rear/underside response is inferred and will be judged in multi-view renders.",
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\reference.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.86,
+        "estimatedFidelity": 0.86,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_albedo.png",
+            "url": "base_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_roughness.png",
+            "url": "base_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+            "url": "base_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_normal.png",
+            "url": "base_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_ao.png",
+            "url": "base_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "mapSize": 1024,
+          "cropBBoxPixels": {
+            "x": 224,
+            "y": 0,
+            "width": 1084,
+            "height": 1012
+          },
+          "mask": {
+            "backgroundColor": "#FFFFFF",
+            "backgroundNoise": 0,
+            "transparentPixelFraction": 0.7815,
+            "foregroundCoverage": 0.226
+          },
+          "mapStats": {
+            "valueRange": 0.3497,
+            "heightP90Gradient": 0.04909,
+            "roughnessBase": 0.68,
+            "roughnessVariation": 0.085,
+            "normalStrength": 0.214,
+            "blurRadius": 21
+          },
+          "palette": [
+            "#D04029",
+            "#4F4E50",
+            "#E1553E",
+            "#7A1D10",
+            "#272020"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "materialClass": "wood"
+    },
+    {
+      "id": "charcoal",
+      "name": "Charcoal-painted crown",
+      "type": "standard",
+      "shaderModel": "MeshStandardMaterial / PBR approximation",
+      "baseColor": "#272020",
+      "color": "#272020",
+      "albedo": {
+        "dominant": "#272020",
+        "secondary": [
+          "#4F4E50",
+          "#272020"
+        ],
+        "samplingNotes": "Palette is derived from the admitted source image; single-view inverse rendering remains approximate."
+      },
+      "colorVariation": {
+        "palette": [
+          "#272020",
+          "#4F4E50"
+        ],
+        "pattern": "low-frequency directional mottle",
+        "amplitude": 0.147,
+        "heightCorrelation": 0.42
+      },
+      "textureResolution": 1024,
+      "textureProjection": {
+        "mode": "uv",
+        "repeat": [
+          2,
+          2
+        ],
+        "anisotropy": 8,
+        "texelDensityIntent": "Preserve stable world/object-scale detail; do not stretch micro detail with component scale."
+      },
+      "surfaceFrequencyBands": [
+        {
+          "id": "macro",
+          "frequency": 2,
+          "amplitude": 0.402,
+          "role": "reference-derived broad albedo and height breakup"
+        },
+        {
+          "id": "meso",
+          "frequency": 14,
+          "amplitude": 0.35,
+          "role": "reference-derived cracks, ridges, pores, grain, or leaf clusters"
+        },
+        {
+          "id": "micro",
+          "frequency": 72,
+          "amplitude": 0.14,
+          "role": "reference-derived micro highlight breakup under grazing light"
+        }
+      ],
+      "roughness": {
+        "base": 0.62,
+        "variation": 0.11,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_roughness.png",
+          "url": "base_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0,
+        "variation": 0
+      },
+      "normal": {
+        "pattern": "reference-derived height-gradient normal map",
+        "strength": 0.214,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_normal.png",
+          "url": "base_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "heightSource": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+          "url": "base_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "space": "tangent"
+      },
+      "bump": {
+        "pattern": "reference-derived height field",
+        "amplitude": 0.022,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+          "url": "base_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "displacement": {
+        "pattern": "none",
+        "amplitude": 0,
+        "scale": 1,
+        "silhouetteAffects": false
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_ao.png",
+          "url": "base_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0,
+        "cavityBias": 0,
+        "color": "#2F2A22"
+      },
+      "localOverrides": [
+        {
+          "id": "charcoal-contact-variation",
+          "description": "Subtle cavity darkening and edge highlight variation tied to the reference.",
+          "confidence": 0.78
+        }
+      ],
+      "shaderNotes": [
+        "Prefer MeshPhysicalMaterial when clearcoat, sheen, transmission, or thin-surface response is observed; otherwise use MeshStandardMaterial-compatible PBR channels.",
+        "Generate albedo, roughness, height/normal, and AO independently; never alias albedo into roughness.",
+        "Use normal/bump/displacement only when they map to observed surface relief.",
+        "Use displacement geometry when the observed relief changes the close-up silhouette; texture-only relief is insufficient there.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Stylized PBR reconstruction from one reference view; rear/underside response is inferred and will be judged in multi-view renders.",
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\reference.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.86,
+        "estimatedFidelity": 0.86,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_albedo.png",
+            "url": "base_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_roughness.png",
+            "url": "base_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+            "url": "base_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_normal.png",
+            "url": "base_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_ao.png",
+            "url": "base_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "mapSize": 1024,
+          "cropBBoxPixels": {
+            "x": 224,
+            "y": 0,
+            "width": 1084,
+            "height": 1012
+          },
+          "mask": {
+            "backgroundColor": "#FFFFFF",
+            "backgroundNoise": 0,
+            "transparentPixelFraction": 0.7815,
+            "foregroundCoverage": 0.226
+          },
+          "mapStats": {
+            "valueRange": 0.3497,
+            "heightP90Gradient": 0.04909,
+            "roughnessBase": 0.68,
+            "roughnessVariation": 0.085,
+            "normalStrength": 0.214,
+            "blurRadius": 21
+          },
+          "palette": [
+            "#D04029",
+            "#4F4E50",
+            "#E1553E",
+            "#7A1D10",
+            "#272020"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "materialClass": "wood"
+    },
+    {
+      "id": "stone",
+      "name": "Weathered gray foundation stone",
+      "type": "standard",
+      "shaderModel": "MeshStandardMaterial / PBR approximation",
+      "baseColor": "#777878",
+      "color": "#777878",
+      "albedo": {
+        "dominant": "#777878",
+        "secondary": [
+          "#4F4E50",
+          "#777878"
+        ],
+        "samplingNotes": "Palette is derived from the admitted source image; single-view inverse rendering remains approximate."
+      },
+      "colorVariation": {
+        "palette": [
+          "#777878",
+          "#4F4E50"
+        ],
+        "pattern": "low-frequency directional mottle",
+        "amplitude": 0.147,
+        "heightCorrelation": 0.42
+      },
+      "textureResolution": 1024,
+      "textureProjection": {
+        "mode": "uv",
+        "repeat": [
+          2,
+          2
+        ],
+        "anisotropy": 8,
+        "texelDensityIntent": "Preserve stable world/object-scale detail; do not stretch micro detail with component scale."
+      },
+      "surfaceFrequencyBands": [
+        {
+          "id": "macro",
+          "frequency": 2,
+          "amplitude": 0.402,
+          "role": "reference-derived broad albedo and height breakup"
+        },
+        {
+          "id": "meso",
+          "frequency": 14,
+          "amplitude": 0.35,
+          "role": "reference-derived cracks, ridges, pores, grain, or leaf clusters"
+        },
+        {
+          "id": "micro",
+          "frequency": 72,
+          "amplitude": 0.14,
+          "role": "reference-derived micro highlight breakup under grazing light"
+        }
+      ],
+      "roughness": {
+        "base": 0.88,
+        "variation": 0.11,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_roughness.png",
+          "url": "base_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0,
+        "variation": 0
+      },
+      "normal": {
+        "pattern": "reference-derived height-gradient normal map",
+        "strength": 0.214,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_normal.png",
+          "url": "base_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "heightSource": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+          "url": "base_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "space": "tangent"
+      },
+      "bump": {
+        "pattern": "reference-derived height field",
+        "amplitude": 0.022,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+          "url": "base_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "displacement": {
+        "pattern": "none",
+        "amplitude": 0,
+        "scale": 1,
+        "silhouetteAffects": false
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_ao.png",
+          "url": "base_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0,
+        "cavityBias": 0,
+        "color": "#2F2A22"
+      },
+      "localOverrides": [
+        {
+          "id": "stone-contact-variation",
+          "description": "Subtle cavity darkening and edge highlight variation tied to the reference.",
+          "confidence": 0.78
+        }
+      ],
+      "shaderNotes": [
+        "Prefer MeshPhysicalMaterial when clearcoat, sheen, transmission, or thin-surface response is observed; otherwise use MeshStandardMaterial-compatible PBR channels.",
+        "Generate albedo, roughness, height/normal, and AO independently; never alias albedo into roughness.",
+        "Use normal/bump/displacement only when they map to observed surface relief.",
+        "Use displacement geometry when the observed relief changes the close-up silhouette; texture-only relief is insufficient there.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Stylized PBR reconstruction from one reference view; rear/underside response is inferred and will be judged in multi-view renders.",
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\reference.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.86,
+        "estimatedFidelity": 0.86,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_albedo.png",
+            "url": "base_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_roughness.png",
+            "url": "base_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+            "url": "base_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_normal.png",
+            "url": "base_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_ao.png",
+            "url": "base_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "mapSize": 1024,
+          "cropBBoxPixels": {
+            "x": 224,
+            "y": 0,
+            "width": 1084,
+            "height": 1012
+          },
+          "mask": {
+            "backgroundColor": "#FFFFFF",
+            "backgroundNoise": 0,
+            "transparentPixelFraction": 0.7815,
+            "foregroundCoverage": 0.226
+          },
+          "mapStats": {
+            "valueRange": 0.3497,
+            "heightP90Gradient": 0.04909,
+            "roughnessBase": 0.68,
+            "roughnessVariation": 0.085,
+            "normalStrength": 0.214,
+            "blurRadius": 21
+          },
+          "palette": [
+            "#D04029",
+            "#4F4E50",
+            "#E1553E",
+            "#7A1D10",
+            "#272020"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "materialClass": "stone"
+    }
+  ],
+  "repetitionSystems": [
+    {
+      "id": "post-mirror-pair",
+      "kind": "mirror-array",
+      "count": 2,
+      "pitch": 1.8,
+      "axis": "+X",
+      "target": "posts",
+      "realization": "One tapered post assembly mirrored across the central portal axis.",
+      "evidence": [
+        "full-object"
+      ],
+      "confidence": 0.95,
+      "buildsGeometry": true,
+      "instances": 2
+    },
+    {
+      "id": "foundation-mirror-pair",
+      "kind": "mirror-array",
+      "count": 2,
+      "pitch": 1.8,
+      "axis": "+X",
+      "target": "foundations",
+      "realization": "One stepped plinth assembly mirrored under both posts.",
+      "evidence": [
+        "full-object"
+      ],
+      "confidence": 0.96,
+      "buildsGeometry": true,
+      "instances": 2
+    }
+  ],
+  "buildPasses": [
+    {
+      "id": "blockout",
+      "goal": "Match macro silhouette and proportions.",
+      "componentRefs": [
+        "root",
+        "posts",
+        "kasagi"
+      ],
+      "acceptance": [
+        "Silhouette reads correctly without materials.",
+        "Quality contract has named all required macro feature groups before code generation.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "structural-pass",
+      "goal": "Build the component hierarchy implied by the pre-spec complexity assessment.",
+      "componentRefs": [
+        "shimagi",
+        "nuki",
+        "cross-beams",
+        "joinery",
+        "foundations"
+      ],
+      "acceptance": [
+        "Macro, meso, and repeated structures meet qualityContract.minimumSpecDepth.",
+        "Parent-child relations, joints, seams, sockets, and contact points are explicit.",
+        "Every attached child appendage/connector has parentSocket, localStart/localEnd, contactType, embedDepth or overlap, and gapTolerance.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "form-refinement",
+      "goal": "Refine shape, deformation, bevels, tapers, curves, asymmetry, and visible local geometry.",
+      "componentRefs": [
+        "posts",
+        "kasagi",
+        "shimagi",
+        "nuki"
+      ],
+      "acceptance": [
+        "Important visible forms are represented in component geometryDescriptor, deformations, localFeatures, or repetitionSystems.",
+        "Endpoint-based child parts are rooted at their attachment sockets and do not visibly float away from parents.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "material-pass",
+      "goal": "Match material color, roughness, bump, and local variation.",
+      "componentRefs": [
+        "posts",
+        "kasagi",
+        "foundations"
+      ],
+      "acceptance": [
+        "Reference-derived albedo palette records dominant, secondary, and accent colors per visible material.",
+        "Each important material defines roughness variation and at least one normal/bump/displacement response.",
+        "Local material overrides, dirt/wear/stains/moss/chips/scratches or equivalent masks are tied to evidenceRefs.",
+        "Thin, transparent, reflective, wet, or fibrous materials document alpha/transmission/clearcoat/metalness/fiber response when relevant.",
+        "Generated preview uses procedural albedo/roughness/bump texture or vertex color variation instead of one flat color.",
+        "Generated preview uses independent PBR maps at 1024px or higher for the quality-first tier.",
+        "If source pixels are available, referencePbr extraction passed at confidence >= 0.7 or the pass is stopped/requesting better references.",
+        "Macro, meso, and micro surface frequency bands are visible at the intended review distance without obvious tiling.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "surface-pass",
+      "goal": "Add procedural surface locality such as normal/bump/displacement, AO, dirt, stains, chips, grain, moss, scratches, and wear.",
+      "componentRefs": [
+        "posts",
+        "kasagi",
+        "foundations"
+      ],
+      "acceptance": [
+        "Every required material feature group has local overrides or surfaceDetail tied to evidenceRefs.",
+        "A grazing-angle close-up proves that normal/height detail breaks highlights naturally and does not read as smooth plastic.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "lighting-pass",
+      "goal": "Make material and form readable under neutral turntable lighting plus optional reference lighting.",
+      "componentRefs": [
+        "root"
+      ],
+      "acceptance": [
+        "lightingFromPhoto identifies key light direction/color/intensity, fill light, rim or environment light, and ambient color.",
+        "Exposure, tone mapping, background color/gradient, shadow softness, and contact shadow behavior are specified.",
+        "Lighting does not hide geometry/material gaps and screenshots can be compared fairly to the reference.",
+        "Neutral, grazing, and reference-matched lighting checks distinguish material errors from lighting errors.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "interaction-pass",
+      "goal": "Make the model ready for future animation, transformation, physics, or destruction.",
+      "componentRefs": [
+        "root",
+        "kasagi",
+        "shimagi"
+      ],
+      "acceptance": [
+        "Macro and movable meso components have stable pivot nodes.",
+        "Sockets, collider proxies, and destruction metadata are present for future runtime actions.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "optimization-pass",
+      "goal": "Protect runtime performance after visual fidelity is accepted.",
+      "componentRefs": [
+        "root",
+        "posts",
+        "foundations"
+      ],
+      "acceptance": [
+        "Triangle count, draw calls, instancing, LOD strategy, and FPS target are documented or verified.",
+        "Repeated detail is instanced or simplified where possible without breaking silhouette/material believability."
+      ]
+    }
+  ],
+  "visualEvidence": [
+    {
+      "id": "source-reference",
+      "type": "admitted-reference",
+      "ref": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\reference.png"
+    },
+    {
+      "timestamp": "2026-09-25T14:00:08.792715+00:00",
+      "passId": "blockout",
+      "estimatedFidelity": 0.75,
+      "aiVisionScore": 0.75,
+      "visualAcceptanceThreshold": 0.7,
+      "layerScores": {
+        "silhouette": 0.79,
+        "structure": 0.78,
+        "material": 0.7,
+        "lighting": 0.77
+      },
+      "featureReviews": [
+        {
+          "id": "torii-portal-silhouette",
+          "score": 0.79,
+          "status": "approximate",
+          "notes": "Portal, tapered paired posts and stone feet read clearly from front and orbit views."
+        },
+        {
+          "id": "torii-swept-crown",
+          "score": 0.76,
+          "status": "approximate",
+          "notes": "Layered upturned crown is present; the procedural center sweep is more angular and uniform than the reference timber."
+        },
+        {
+          "id": "torii-grounded-joinery",
+          "score": 0.73,
+          "status": "approximate",
+          "notes": "Crossbeam, central support, tie blocks and stepped footings are represented; surface wear and complex joinery remain stylized."
+        }
+      ],
+      "referenceScreenshot": ".img2threejs\\torii\\reference.png",
+      "renderScreenshot": ".img2threejs\\renders\\torii-reference.png",
+      "comparisonImage": ".img2threejs\\torii\\comparison.png",
+      "cameraView": "front three-quarter plus four-angle turntable",
+      "notes": "",
+      "aiVisionNotes": "Gate holds as a volume in orbit and preserves the reference color and beam hierarchy. Surface weathering remains intentionally stylized."
+    }
+  ],
+  "reviewHistory": [
+    {
+      "timestamp": "2026-09-25T14:00:08.792715+00:00",
+      "passId": "blockout",
+      "estimatedFidelity": 0.75,
+      "aiVisionScore": 0.75,
+      "visualAcceptanceThreshold": 0.7,
+      "layerScores": {
+        "silhouette": 0.79,
+        "structure": 0.78,
+        "material": 0.7,
+        "lighting": 0.77
+      },
+      "featureReviews": [
+        {
+          "id": "torii-portal-silhouette",
+          "score": 0.79,
+          "status": "approximate",
+          "notes": "Portal, tapered paired posts and stone feet read clearly from front and orbit views."
+        },
+        {
+          "id": "torii-swept-crown",
+          "score": 0.76,
+          "status": "approximate",
+          "notes": "Layered upturned crown is present; the procedural center sweep is more angular and uniform than the reference timber."
+        },
+        {
+          "id": "torii-grounded-joinery",
+          "score": 0.73,
+          "status": "approximate",
+          "notes": "Crossbeam, central support, tie blocks and stepped footings are represented; surface wear and complex joinery remain stylized."
+        }
+      ],
+      "action": "stop",
+      "summary": "Recognizable action-ready torii for cinematic scroll staging; stop at stylized single-view fidelity.",
+      "matched": [
+        "upturned dark crown",
+        "vermilion layered beams",
+        "tapered paired posts",
+        "stepped stone foundations"
+      ],
+      "mismatches": [
+        "wood and stone microtexture simplified",
+        "joinery less intricate",
+        "hidden rear depth inferred"
+      ],
+      "specFixes": [],
+      "codeFixes": [],
+      "evidence": [],
+      "mapStrippedRender": ".img2threejs\\renders\\torii-reference.png",
+      "reviewViewpoints": [
+        "front",
+        "right",
+        "rear",
+        "left",
+        "three-quarter"
+      ],
+      "visualEvidence": {
+        "referenceScreenshot": ".img2threejs\\torii\\reference.png",
+        "renderScreenshot": ".img2threejs\\renders\\torii-reference.png",
+        "comparisonImage": ".img2threejs\\torii\\comparison.png",
+        "cameraView": "front three-quarter plus four-angle turntable",
+        "notes": "",
+        "aiVisionNotes": "Gate holds as a volume in orbit and preserves the reference color and beam hierarchy. Surface weathering remains intentionally stylized."
+      }
+    }
+  ],
+  "lodPlan": [
+    {
+      "tier": "near",
+      "distance": 0,
+      "strategy": "full component tree and material layers"
+    },
+    {
+      "tier": "far",
+      "distance": 30,
+      "strategy": "merge static components and reduce local feature geometry"
+    }
+  ],
+  "performanceBudget": {
+    "qualityPriority": "reference-fidelity",
+    "targetTriangles": 250000,
+    "maxDrawCalls": 160,
+    "textureSize": 2048,
+    "fpsTarget": 30,
+    "optimizationPolicy": "Reach accepted visual fidelity first, then optimize without removing reference-critical geometry or surface layers."
+  },
+  "lightingFromPhoto": [
+    {
+      "role": "key",
+      "direction": "upper-left at 45 degrees",
+      "colorTemp": "warm daylight",
+      "intensity": "moderate-high",
+      "evidence": [
+        "full-object"
+      ]
+    },
+    {
+      "role": "fill",
+      "direction": "front-right bounce",
+      "colorTemp": "neutral",
+      "intensity": "low",
+      "evidence": [
+        "full-object"
+      ]
+    },
+    {
+      "role": "rim/environment",
+      "direction": "rear and overhead environment",
+      "colorTemp": "cool sky contrast",
+      "intensity": "low",
+      "note": "ACES filmic tone mapping, exposure 1.0, soft contact shadow on ground plane.",
+      "evidence": [
+        "full-object"
+      ]
+    }
+  ],
+  "proceduralStrategy": [
+    "Block out macro silhouette first.",
+    "Add component hierarchy and joints.",
+    "Create stable pivot groups, sockets, collider proxies, and destruction metadata before visual polish.",
+    "Refine forms with bevels, tapers, bends, and procedural noise.",
+    "Run reference PBR extraction for important source-image materials and stop when confidence is below the target threshold.",
+    "Add material variation before adding expensive micro-geometry."
+  ],
+  "animationAnchors": [
+    "root supports slow portal approach and camera-relative yaw",
+    "kasagi and shimagi retain separate pivots for parallax reveal",
+    "paired foundations can settle independently during chapter entrance"
+  ],
+  "destructionAnchors": [
+    "actionProfile.destruction.fractureGroup marks detachable or breakable component sets",
+    "component seams and sockets define plausible break points instead of random explosions"
+  ],
+  "risks": [],
+  "localSpecSearch": {
+    "collection": "core_3d",
+    "query": "Roamly torii gate",
+    "index": {
+      "status": "hit",
+      "reason": "current",
+      "fingerprint": "06f0b2ece2935e441653f5c3533f91b3a4d6163f2aec4267559d7d8419bdd040"
+    },
+    "matches": []
+  },
+  "pbrExtractionHistory": [
+    {
+      "materialId": "base",
+      "confidence": 0.86,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_albedo.png",
+          "url": "base_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_roughness.png",
+          "url": "base_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_height.png",
+          "url": "base_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_normal.png",
+          "url": "base_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\torii\\pbr\\base_ao.png",
+          "url": "base_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    }
+  ],
+  "tier1Results": [
+    {
+      "passed": false,
+      "checks": {
+        "silhouetteIoU": 0.447,
+        "aspectRatioDelta": 0.3394,
+        "scaleDelta": 0.0578,
+        "bilateralSymmetryError": 0.1633,
+        "colorDelta": {
+          "checked": 8,
+          "maxDeltaE": 25.08,
+          "perComponent": [
+            {
+              "componentId": null,
+              "deltaE": 5.44
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.44
+            },
+            {
+              "componentId": null,
+              "deltaE": 3.36
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.44
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.44
+            },
+            {
+              "componentId": null,
+              "deltaE": 3.36
+            },
+            {
+              "componentId": null,
+              "deltaE": 3.36
+            },
+            {
+              "componentId": null,
+              "deltaE": 25.08
+            }
+          ],
+          "gated": false
+        }
+      },
+      "failures": [
+        "silhouette IoU 0.447 is below threshold 0.85",
+        "aspect-ratio delta 0.339 exceeds threshold 0.05",
+        "blockout requires --map-stripped-render evidence"
+      ],
+      "maskWarnings": [],
+      "renderHash": "10cc5b6228a64f5e",
+      "passId": "blockout"
+    },
+    {
+      "passed": false,
+      "checks": {
+        "silhouetteIoU": 0.4221,
+        "aspectRatioDelta": 0.0002,
+        "scaleDelta": 0.0658,
+        "bilateralSymmetryError": 0.1858,
+        "colorDelta": {
+          "checked": 8,
+          "maxDeltaE": 26.16,
+          "perComponent": [
+            {
+              "componentId": null,
+              "deltaE": 10.34
+            },
+            {
+              "componentId": null,
+              "deltaE": 10.34
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.28
+            },
+            {
+              "componentId": null,
+              "deltaE": 10.34
+            },
+            {
+              "componentId": null,
+              "deltaE": 10.34
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.28
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.28
+            },
+            {
+              "componentId": null,
+              "deltaE": 26.16
+            }
+          ],
+          "gated": false
+        }
+      },
+      "failures": [
+        "silhouette IoU 0.422 is below threshold 0.85"
+      ],
+      "maskWarnings": [],
+      "renderHash": "2e342282af5bdf15",
+      "passId": "blockout",
+      "mapStrippedRender": ".img2threejs\\renders\\torii-reference.png"
+    },
+    {
+      "passed": false,
+      "checks": {
+        "silhouetteIoU": 0.4295,
+        "aspectRatioDelta": 0.1696,
+        "scaleDelta": 0.1152,
+        "bilateralSymmetryError": 0.1289,
+        "colorDelta": {
+          "checked": 8,
+          "maxDeltaE": 23.22,
+          "perComponent": [
+            {
+              "componentId": null,
+              "deltaE": 6.67
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.67
+            },
+            {
+              "componentId": null,
+              "deltaE": 15.24
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.67
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.67
+            },
+            {
+              "componentId": null,
+              "deltaE": 15.24
+            },
+            {
+              "componentId": null,
+              "deltaE": 15.24
+            },
+            {
+              "componentId": null,
+              "deltaE": 23.22
+            }
+          ],
+          "gated": false
+        }
+      },
+      "failures": [
+        "silhouette IoU 0.430 is below threshold 0.85",
+        "aspect-ratio delta 0.170 exceeds threshold 0.05",
+        "scale delta 0.115 exceeds threshold 0.08"
+      ],
+      "maskWarnings": [],
+      "renderHash": "b530f034548a92ea",
+      "passId": "blockout",
+      "mapStrippedRender": ".img2threejs\\renders\\torii-reference.png"
+    },
+    {
+      "passed": false,
+      "checks": {
+        "silhouetteIoU": 0.4621,
+        "aspectRatioDelta": 0.0993,
+        "scaleDelta": 0.2801,
+        "bilateralSymmetryError": 0.0281,
+        "colorDelta": {
+          "checked": 8,
+          "maxDeltaE": 12.04,
+          "perComponent": [
+            {
+              "componentId": null,
+              "deltaE": 5.62
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.62
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.3
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.62
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.62
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.3
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.3
+            },
+            {
+              "componentId": null,
+              "deltaE": 12.04
+            }
+          ],
+          "gated": false
+        }
+      },
+      "failures": [
+        "silhouette IoU 0.462 is below threshold 0.85",
+        "aspect-ratio delta 0.099 exceeds threshold 0.05",
+        "scale delta 0.280 exceeds threshold 0.08"
+      ],
+      "maskWarnings": [],
+      "renderHash": "629802e3515a03dc",
+      "passId": "blockout",
+      "mapStrippedRender": ".img2threejs\\renders\\torii-reference.png"
+    }
+  ]
+}

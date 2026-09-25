@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.86,
+  "estimatedFidelity": 0.86,
+  "targetThreshold": 0.7,
+  "materialId": "base",
+  "sourceImage": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\reference.png",
+  "outDir": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\pbr",
+  "palette": [
+    "#334464",
+    "#253450",
+    "#121620",
+    "#5C6986",
+    "#C69A95"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\pbr\\base_albedo.png",
+      "url": "base_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\pbr\\base_roughness.png",
+      "url": "base_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\pbr\\base_height.png",
+      "url": "base_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\pbr\\base_normal.png",
+      "url": "base_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\pbr\\base_ao.png",
+      "url": "base_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "mapSize": 1024,
+    "cropBBoxPixels": {
+      "x": 125,
+      "y": 63,
+      "width": 825,
+      "height": 1422
+    },
+    "mask": {
+      "backgroundColor": "#FFFFFF",
+      "backgroundNoise": 0.0,
+      "transparentPixelFraction": 0.5148,
+      "foregroundCoverage": 0.4911
+    },
+    "mapStats": {
+      "valueRange": 0.4673,
+      "heightP90Gradient": 0.06606,
+      "roughnessBase": 0.699,
+      "roughnessVariation": 0.12,
+      "normalStrength": 0.234,
+      "blurRadius": 21
+    },
+    "palette": [
+      "#334464",
+      "#253450",
+      "#121620",
+      "#5C6986",
+      "#C69A95"
+    ]
+  },
+  "warnings": [
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

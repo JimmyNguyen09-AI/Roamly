@@ -1,0 +1,15 @@
+{
+  "model": "roamly-torii-gate",
+  "parts": [
+    {"name":"root","kind":"part","module":"root","triangles":0},
+    {"name":"posts","kind":"part","module":"posts","triangles":1600},
+    {"name":"kasagi","kind":"part","module":"kasagi","triangles":1300},
+    {"name":"shimagi","kind":"part","module":"shimagi","triangles":1100},
+    {"name":"nuki","kind":"part","module":"nuki","triangles":480},
+    {"name":"cross-beams","kind":"part","module":"cross-beams","triangles":220},
+    {"name":"joinery","kind":"part","module":"joinery","triangles":420},
+    {"name":"foundations","kind":"part","module":"foundations","triangles":1300}
+  ],
+  "unnamedMeshes": 0,
+  "integralMeshes": 0
+}

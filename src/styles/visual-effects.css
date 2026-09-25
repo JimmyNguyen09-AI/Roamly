@@ -1,0 +1,15 @@
+.sf-grid-surface {
+  background-color: var(--sf-canvas);
+  background-image: linear-gradient(rgba(203,213,225,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(203,213,225,.28) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+.sf-hover-lift { transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+.sf-hover-lift:hover { transform: translateY(-2px); border-color: #A5B4FC; box-shadow: 0 12px 28px rgba(15,23,42,.08); }
+.sf-reveal { animation: sf-reveal 360ms ease-out both; }
+.sf-skeleton { background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 45%, #E2E8F0 65%); background-size: 240% 100%; animation: sf-skeleton 1.4s ease-in-out infinite; }
+@keyframes sf-reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes sf-skeleton { to { background-position: -180% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .sf-hover-lift, .sf-reveal, .sf-skeleton { transition: none; animation: none; transform: none; }
+}

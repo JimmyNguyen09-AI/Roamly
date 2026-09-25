@@ -1,0 +1,14 @@
+{
+  "model": "roamly-carry-on",
+  "parts": [
+    {"name":"root","kind":"part","module":"root","triangles":0},
+    {"name":"front-shell","kind":"part","module":"front-shell","triangles":2400},
+    {"name":"gusset","kind":"part","module":"gusset","triangles":1200},
+    {"name":"telescopic-handle","kind":"part","module":"telescopic-handle","triangles":900},
+    {"name":"tag","kind":"part","module":"tag","triangles":620},
+    {"name":"wheels","kind":"part","module":"wheels","triangles":2300},
+    {"name":"side-handle","kind":"part","module":"side-handle","triangles":560}
+  ],
+  "unnamedMeshes": 0,
+  "integralMeshes": 0
+}

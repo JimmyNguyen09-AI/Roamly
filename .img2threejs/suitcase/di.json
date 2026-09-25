@@ -1,0 +1,20 @@
+{
+  "sourceImage": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\reference.png",
+  "zonesDir": "C:\\Users\\ngtru\\DevSpace\\skillforge-core-pack-v0.5\\projects\\roamly\\roamly-web\\.img2threejs\\suitcase\\detail-inventory",
+  "detailInventory": {
+    "scanMethod": "grid-3x3",
+    "targetMinDetails": 9,
+    "details": [
+      {"id":"handle-grip","kind":"bevel","description":"rounded dark bridge grip with broad shoulder transitions","region":{"x":0.40,"y":0.04,"width":0.34,"height":0.16,"units":"normalized"},"scale":"meso","affects":"silhouette and grazing highlight","mapsTo":{"type":"component.localFeatures","ref":"telescopic-handle.grip-bevel"},"evidenceRef":"detail-inventory/zone-r0c1.png","confidence":0.96},
+      {"id":"rail-fasteners","kind":"fastener","description":"paired dark circular rail stops","region":{"x":0.39,"y":0.16,"width":0.35,"height":0.16,"units":"normalized"},"scale":"micro","affects":"handle identity","mapsTo":{"type":"component.localFeatures","ref":"telescopic-handle.rail-fasteners"},"evidenceRef":"detail-inventory/zone-r0c1.png","confidence":0.92},
+      {"id":"tag-stitch","kind":"stitch","description":"inset stitched border around coral tag","region":{"x":0.60,"y":0.23,"width":0.20,"height":0.25,"units":"normalized"},"scale":"micro","affects":"tag relief","mapsTo":{"type":"component.localFeatures","ref":"tag.stitched-border"},"evidenceRef":"detail-inventory/zone-r0c2.png","confidence":0.93},
+      {"id":"tag-buckle","kind":"fastener","description":"small metallic buckle on coral strap","region":{"x":0.61,"y":0.19,"width":0.10,"height":0.12,"units":"normalized"},"scale":"micro","affects":"tag attachment","mapsTo":{"type":"component.localFeatures","ref":"tag.buckle"},"evidenceRef":"detail-inventory/zone-r0c1.png","confidence":0.9},
+      {"id":"shell-ribs","kind":"groove","description":"six broad horizontal recessed shell channels","region":{"x":0.14,"y":0.28,"width":0.66,"height":0.52,"units":"normalized"},"scale":"meso","affects":"front shell form","mapsTo":{"type":"component.localFeatures","ref":"front-shell.recessed-ribs"},"evidenceRef":"detail-inventory/zone-r1c1.png","confidence":0.98},
+      {"id":"zip-seam","kind":"seam","description":"dark continuous perimeter zipper/gusset line","region":{"x":0.72,"y":0.25,"width":0.17,"height":0.58,"units":"normalized"},"scale":"meso","affects":"shell separation","mapsTo":{"type":"component.localFeatures","ref":"gusset.zip-seam"},"evidenceRef":"detail-inventory/zone-r1c2.png","confidence":0.96},
+      {"id":"corner-guards","kind":"contour","description":"dark guards wrapping both lower shell corners","region":{"x":0.13,"y":0.75,"width":0.68,"height":0.13,"units":"normalized"},"scale":"meso","affects":"lower silhouette","mapsTo":{"type":"component.localFeatures","ref":"body.corner-guards"},"evidenceRef":"detail-inventory/zone-r2c1.png","confidence":0.94},
+      {"id":"wheel-hubs","kind":"ridge","description":"raised circular hub discs on four wheel pivots","region":{"x":0.10,"y":0.82,"width":0.82,"height":0.16,"units":"normalized"},"scale":"meso","affects":"wheel silhouette","mapsTo":{"type":"component.localFeatures","ref":"wheels.hub-discs"},"evidenceRef":"detail-inventory/zone-r2c1.png","confidence":0.9},
+      {"id":"shell-gloss","kind":"gloss","description":"soft vertical highlight bands across navy shell","region":{"x":0.16,"y":0.24,"width":0.64,"height":0.59,"units":"normalized"},"scale":"macro","affects":"shell material response","mapsTo":{"type":"material.localOverrides","ref":"shell.highlight-band"},"evidenceRef":"detail-inventory/zone-r1c1.png","confidence":0.88}
+    ]
+  },
+  "authoringInstruction": "Open each zone crop under zonesDir and replace every detail stub's kind, description, scale, affects, mapsTo, and confidence with what is actually observed. Add more detail entries per zone if a single zone contains multiple distinct marks; do not leave stubs unfilled or unlinked (mapsTo must reference a real component.localFeatures or material.localOverrides entry)."
+}
