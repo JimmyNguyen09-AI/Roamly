@@ -77,6 +77,11 @@ export default function StoryHome() {
   const chapterStyle = (index: number) => ({
     "--chapter-progress": activeChapter === index ? chapterProgress : activeChapter > index ? 1 : 0,
   } as CSSProperties);
+  const routeProgress = activeChapter > 2
+    ? 1
+    : activeChapter === 2
+      ? Math.min(chapterProgress / 0.78, 1)
+      : 0;
 
   return (
     <main
@@ -96,7 +101,6 @@ export default function StoryHome() {
       </header>
 
       <StoryProgress activeChapter={activeChapter} chapterLabels={CHAPTER_LABELS} />
-      <div className="story-atmosphere" aria-hidden="true"><i /><i /><i /></div>
       <div className="story-thread" aria-hidden="true"><span /></div>
       {showCanvas ? (
         <StoryCanvas scrollProgress={scrollProgress} activeChapter={activeChapter} chapterProgress={chapterProgress} />
@@ -108,11 +112,6 @@ export default function StoryHome() {
         </div>
         <div className="chapter-wash hero-wash" />
         <div className="hero-orbit" aria-hidden="true"><i /><i /><span>somewhere / soon</span></div>
-        {!reducedMotion && !dataSaver ? (
-          <div className="cloud-layer" aria-hidden="true">
-            <Image src="/media/09-cloud-drift.gif" alt="" fill unoptimized sizes="120vw" />
-          </div>
-        ) : null}
         <div className="chapter-inner hero-inner depth-foreground">
           <p className="eyebrow eyebrow-light">Japan · Seven days · One shared plan</p>
           <WordReveal text="A journey begins before the booking" isVisible={heroVisible} className="hero-title" staggerMs={45} />
@@ -171,10 +170,10 @@ export default function StoryHome() {
           <ScrollReveal delay={120} className="route-board-wrap">
             <div className="route-board">
               <div className="route-board-head"><span>Your route</span><span>7 days · 5 stops</span></div>
-              <JourneyRoute progress={activeChapter >= 2 ? Math.min(0.18 + chapterProgress * 0.72, 0.9) : 0.1} />
+              <JourneyRoute progress={routeProgress} />
               <ol className="city-list" aria-label="Japan route stops">
                 {['Tokyo', 'Hakone', 'Kyoto', 'Nara', 'Osaka'].map((city, index) => (
-                  <li key={city} className={chapterProgress > index * 0.13 ? "is-arrived" : ""}><span>0{index + 1}</span>{city}</li>
+                  <li key={city} className={routeProgress >= [0.02, 0.28, 0.55, 0.78, 0.98][index] ? "is-arrived" : ""}><span>0{index + 1}</span>{city}</li>
                 ))}
               </ol>
             </div>
@@ -191,7 +190,7 @@ export default function StoryHome() {
           </ScrollReveal>
           <div className="packing-whisper" aria-hidden="true">make room<br />for the unplanned</div>
           <div className={`model-stage ${showCanvas ? "model-stage-enhanced" : ""}`} aria-label={showCanvas ? "Animated indigo suitcase assembling piece by piece" : undefined}>
-            {!showCanvas ? <Image src="/media/07-suitcase-reference.webp" alt="Indigo carry-on suitcase with coral luggage tag" fill sizes="(max-width: 719px) 92vw, 44vw" /> : <span className="model-stage-label"><b>ASSEMBLY 04</b> shell / ribs / wheels / tag</span>}
+            {!showCanvas ? <Image src="/media/12-indigo-suitcase.png" alt="Indigo Japanese carry-on suitcase with a vermilion luggage tag" fill sizes="(max-width: 719px) 92vw, 44vw" /> : <span className="model-stage-label"><b>ASSEMBLY 04</b> ready for departure</span>}
           </div>
           <div className="packed-list" aria-label="Itinerary moments">
             {PACKED_MOMENTS.map((item, index) => (
@@ -200,25 +199,22 @@ export default function StoryHome() {
               </ScrollReveal>
             ))}
           </div>
-          <ScrollReveal className="ryokan-panel">
-            <Image src="/media/04-ryokan-stay.webp" alt="Ryokan room opening to a garden" fill sizes="(max-width: 719px) 100vw, 52vw" />
-            <div><span>Day 3 · Hakone</span><p>A quiet evening, deliberately left open.</p></div>
-          </ScrollReveal>
           <p className="scene-caption scene-caption-right" aria-hidden="true"><span>SCENE 04</span> Make room for what matters</p>
         </div>
       </section>
 
       <section id="chapter-5" ref={setChapterRef(4)} style={chapterStyle(4)} className="story-chapter memory-chapter chapter-dark">
         <div className="memory-image editorial-mask"><Image src="/media/05-street-food.webp" alt="Friends eating in a Japanese street-food alley" fill sizes="(max-width: 719px) 100vw, 66vw" /></div>
+        <div className="memory-ambient" aria-hidden="true"><i /><i /><span /></div>
         <div className="film-perforations" aria-hidden="true" />
         <div className="chapter-inner memory-layout">
-          <ScrollReveal direction="right" className="memory-caption">
+          <article className="memory-caption">
             <p className="eyebrow eyebrow-coral">05 · Remember</p><h2 className="chapter-title chapter-title-light">The plan disappears. The story stays.</h2>
             <dl className="memory-meta">
               <div><dt>Place</dt><dd>Dotonbori, Osaka</dd></div><div><dt>Time</dt><dd>8:30 PM</dd></div>
               <div><dt>Cost</dt><dd>¥1,200 each</dd></div><div><dt>Shared note</dt><dd>Order another round of takoyaki.</dd></div>
             </dl>
-          </ScrollReveal>
+          </article>
           <p className="scene-caption scene-caption-left" aria-hidden="true"><span>SCENE 05</span> Plans turn into frames</p>
         </div>
       </section>

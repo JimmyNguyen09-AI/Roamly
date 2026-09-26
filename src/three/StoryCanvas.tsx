@@ -21,9 +21,9 @@ interface CameraBeat {
 }
 
 const CAMERA_BEATS: CameraBeat[] = [
-  { position: new THREE.Vector3(2.8, 2.15, 12.35), lookAt: new THREE.Vector3(0.15, 1.68, 0), fov: 39, roll: -0.015, ambient: new THREE.Color(0xffd8b7), key: new THREE.Color(0xffa27e), exposure: 1.08 },
-  { position: new THREE.Vector3(1.4, 1.95, 5.25), lookAt: new THREE.Vector3(0.15, 1.68, -0.5), fov: 42, roll: 0.008, ambient: new THREE.Color(0x8589ff), key: new THREE.Color(0xff7865), exposure: 1.16 },
-  { position: new THREE.Vector3(0.1, 1.65, -4.45), lookAt: new THREE.Vector3(0, 0.45, -11.5), fov: 48, roll: -0.012, ambient: new THREE.Color(0xa4bec1), key: new THREE.Color(0xdfe9dd), exposure: 1.06 },
+  { position: new THREE.Vector3(2.4, 2.1, 12.9), lookAt: new THREE.Vector3(0.15, 1.62, 0), fov: 40, roll: -0.012, ambient: new THREE.Color(0xf2c5ad), key: new THREE.Color(0xff9b78), exposure: 1.02 },
+  { position: new THREE.Vector3(0.45, 2, 7.8), lookAt: new THREE.Vector3(0.12, 1.65, -0.3), fov: 43, roll: 0.006, ambient: new THREE.Color(0x8589ff), key: new THREE.Color(0xff7865), exposure: 1.08 },
+  { position: new THREE.Vector3(0.05, 1.65, -4.45), lookAt: new THREE.Vector3(0, 0.45, -11.5), fov: 48, roll: -0.012, ambient: new THREE.Color(0xa4bec1), key: new THREE.Color(0xdfe9dd), exposure: 1.06 },
   { position: new THREE.Vector3(-1.7, 2.4, -13.65), lookAt: new THREE.Vector3(1.25, 1.34, -20), fov: 42, roll: 0.018, ambient: new THREE.Color(0xf3cfaa), key: new THREE.Color(0xff876f), exposure: 1.12 },
   { position: new THREE.Vector3(-3.05, 2.15, -24), lookAt: new THREE.Vector3(0, 1.18, -28.5), fov: 43, roll: -0.02, ambient: new THREE.Color(0xffb47c), key: new THREE.Color(0xff7a5e), exposure: 1.1 },
   { position: new THREE.Vector3(0.8, 1.9, -34), lookAt: new THREE.Vector3(0, 1.18, -40), fov: 44, roll: 0.012, ambient: new THREE.Color(0xa4afff), key: new THREE.Color(0x7983ff), exposure: 1.08 },
@@ -97,14 +97,14 @@ export default function StoryCanvas({ activeChapter, chapterProgress }: StoryCan
     const world = createStoryWorld();
     scene.add(world.root);
 
-    const hemisphere = new THREE.HemisphereLight(0xffead8, 0x17213b, 1.75);
+    const hemisphere = new THREE.HemisphereLight(0xffead8, 0x17213b, 1.35);
     scene.add(hemisphere);
-    const keyLight = new THREE.DirectionalLight(0xff9c77, 3.2);
+    const keyLight = new THREE.DirectionalLight(0xff9c77, 2.45);
     keyLight.position.set(5, 9, 8);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.set(1024, 1024);
     scene.add(keyLight);
-    const cameraLight = new THREE.PointLight(0xbcc5ff, 13, 22, 1.6);
+    const cameraLight = new THREE.PointLight(0xbcc5ff, 8.5, 22, 1.6);
     scene.add(cameraLight);
 
     const clock = new THREE.Clock();

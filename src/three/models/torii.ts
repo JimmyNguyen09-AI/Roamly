@@ -1,9 +1,9 @@
 import * as THREE from "three";
 
-const vermilion = new THREE.MeshPhysicalMaterial({ color: 0xd04029, roughness: 0.54, clearcoat: 0.14, clearcoatRoughness: 0.55 });
-const vermilionShade = new THREE.MeshStandardMaterial({ color: 0x7a1d10, roughness: 0.68 });
-const charcoal = new THREE.MeshStandardMaterial({ color: 0x272020, roughness: 0.64 });
-const stone = new THREE.MeshStandardMaterial({ color: 0x777878, roughness: 0.91 });
+const vermilion = new THREE.MeshPhysicalMaterial({ color: 0xb93622, roughness: 0.62, clearcoat: 0.08, clearcoatRoughness: 0.68 });
+const vermilionShade = new THREE.MeshStandardMaterial({ color: 0x5f170f, roughness: 0.76 });
+const charcoal = new THREE.MeshStandardMaterial({ color: 0x211b1b, roughness: 0.72 });
+const stone = new THREE.MeshStandardMaterial({ color: 0x6d706e, roughness: 0.94 });
 
 function crownGeometry(width: number, height: number, depth: number, lift: number) {
   const half = width / 2;

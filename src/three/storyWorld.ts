@@ -73,6 +73,81 @@ function createPortalMaterial() {
   });
 }
 
+function createCloudMaterial() {
+  return new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    depthTest: true,
+    side: THREE.DoubleSide,
+    blending: THREE.NormalBlending,
+    uniforms: {
+      uTime: { value: 0 },
+      uOpacity: { value: 0 },
+      uWarm: { value: new THREE.Color(0xffddd0) },
+      uCool: { value: new THREE.Color(0xaeb7ff) },
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      varying float vSeed;
+      void main() {
+        vUv = uv;
+        vec4 localPosition = vec4(position, 1.0);
+        #ifdef USE_INSTANCING
+          vSeed = instanceMatrix[3].x * .17 + instanceMatrix[3].y * .31;
+          localPosition = instanceMatrix * localPosition;
+        #else
+          vSeed = 0.0;
+        #endif
+        gl_Position = projectionMatrix * modelViewMatrix * localPosition;
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      varying float vSeed;
+      uniform float uTime;
+      uniform float uOpacity;
+      uniform vec3 uWarm;
+      uniform vec3 uCool;
+
+      float hash(vec2 p) {
+        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+      }
+
+      float noise(vec2 p) {
+        vec2 i = floor(p);
+        vec2 f = fract(p);
+        f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
+                   mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+      }
+
+      float fbm(vec2 p) {
+        float value = 0.0;
+        float amplitude = .55;
+        for (int i = 0; i < 5; i++) {
+          value += amplitude * noise(p);
+          p = p * 2.03 + vec2(8.1, 3.7);
+          amplitude *= .48;
+        }
+        return value;
+      }
+
+      void main() {
+        vec2 centred = vUv * 2.0 - 1.0;
+        vec2 flow = vec2(uTime * .018 + vSeed, sin(uTime * .11 + vSeed) * .05);
+        float body = fbm(vUv * vec2(3.4, 2.25) + flow);
+        body += fbm(vUv * vec2(6.6, 4.1) - flow * .65) * .28;
+        float edge = smoothstep(1.08, .24, length(centred * vec2(.78, 1.08)));
+        float density = smoothstep(.47, .86, body) * edge;
+        vec3 colour = mix(uCool, uWarm, clamp(vUv.y + body * .22, 0.0, 1.0));
+        float alpha = density * uOpacity * .34;
+        if (alpha < .006) discard;
+        gl_FragColor = vec4(colour, alpha);
+      }
+    `,
+  });
+}
+
 function makeCanvasCard(kicker: string, title: string, detail: string, accent: string) {
   const canvas = document.createElement("canvas");
   canvas.width = 768;
@@ -163,6 +238,65 @@ function createPhotoFrame(source: string, caption: string) {
   return group;
 }
 
+function loadPhotoTexture(source: string) {
+  const texture = new THREE.TextureLoader().load(source);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 4;
+  return texture;
+}
+
+function createProjectedSuitcase() {
+  const group = new THREE.Group();
+  group.name = "projected-suitcase";
+  const texture = loadPhotoTexture("/media/12-indigo-suitcase.png");
+  const width = 1.42;
+  const height = 2.13;
+  const sliceCount = 6;
+  const sliceHeight = height / sliceCount;
+  const materials: THREE.MeshBasicMaterial[] = [];
+  const strips: THREE.Mesh[] = [];
+
+  const shadowMaterial = new THREE.MeshBasicMaterial({
+    map: texture,
+    color: 0x1b2038,
+    transparent: true,
+    opacity: 0,
+    alphaTest: 0.045,
+    depthWrite: false,
+    toneMapped: false,
+  });
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(width * 1.035, height * 1.025), shadowMaterial);
+  shadow.name = "projected-suitcase-depth-shadow";
+  shadow.position.set(0.055, -0.035, -0.07);
+  group.add(shadow);
+
+  for (let index = 0; index < sliceCount; index += 1) {
+    const geometry = new THREE.PlaneGeometry(width, sliceHeight + 0.006);
+    const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
+    for (let vertex = 0; vertex < uv.count; vertex += 1) {
+      uv.setY(vertex, (uv.getY(vertex) + index) / sliceCount);
+    }
+    uv.needsUpdate = true;
+    const material = new THREE.MeshBasicMaterial({
+      map: texture,
+      transparent: true,
+      opacity: 0,
+      alphaTest: 0.045,
+      depthWrite: false,
+      toneMapped: false,
+    });
+    const strip = new THREE.Mesh(geometry, material);
+    strip.name = `projected-suitcase-slice-${index + 1}`;
+    strip.position.y = -height * 0.5 + sliceHeight * (index + 0.5);
+    strip.position.z = index * 0.002;
+    materials.push(material);
+    strips.push(strip);
+    group.add(strip);
+  }
+
+  return { group, strips, materials, shadowMaterial, height };
+}
+
 function createRouteWorld() {
   const group = new THREE.Group();
   group.name = "route-world";
@@ -214,25 +348,6 @@ function createRouteWorld() {
   nodes.instanceMatrix.needsUpdate = true;
   group.add(nodes);
 
-  const mountains = new THREE.InstancedMesh(
-    new THREE.ConeGeometry(1, 1, 5),
-    new THREE.MeshStandardMaterial({ color: 0x52666a, roughness: 1, transparent: true, opacity: 0 }),
-    34,
-  );
-  for (let index = 0; index < 34; index += 1) {
-    const side = index % 2 === 0 ? -1 : 1;
-    const x = side * (4.5 + seeded(index) * 4.2);
-    const z = -8.8 - seeded(index + 52) * 10;
-    const height = 0.7 + seeded(index + 91) * 2.2;
-    tempPosition.set(x, -0.62 + height * 0.5, z);
-    tempQuaternion.setFromAxisAngle(Y_AXIS, seeded(index + 13) * Math.PI);
-    tempScale.set(0.58 + seeded(index + 7) * 0.72, height, 0.58 + seeded(index + 9) * 0.72);
-    tempMatrix.compose(tempPosition, tempQuaternion, tempScale);
-    mountains.setMatrixAt(index, tempMatrix);
-  }
-  mountains.instanceMatrix.needsUpdate = true;
-  group.add(mountains);
-
   const train = new THREE.Group();
   train.name = "story-train";
   const trainBody = new THREE.Mesh(
@@ -250,7 +365,7 @@ function createRouteWorld() {
   });
   group.add(train);
 
-  return { group, curve, route, routeMaterial, nodes, mountains, train };
+  return { group, curve, route, routeMaterial, nodes, train };
 }
 
 export interface StoryWorld {
@@ -265,11 +380,14 @@ export function createStoryWorld(): StoryWorld {
   root.name = "roamly-continuous-world";
 
   const torii = createRoamlyTorii();
-  torii.scale.setScalar(1.42);
-  torii.position.set(2.15, -0.28, 0);
+  torii.scale.setScalar(0.001);
+  torii.position.set(1.3, -0.18, 0);
+  torii.visible = false;
   root.add(torii);
   const toriiBase = new Map<THREE.Object3D, THREE.Vector3>();
+  const toriiRotationBase = new Map<THREE.Object3D, THREE.Euler>();
   torii.children.forEach((child) => toriiBase.set(child, child.position.clone()));
+  torii.children.forEach((child) => toriiRotationBase.set(child, child.rotation.clone()));
   const toriiMaterials = new Set<THREE.Material>();
   torii.traverse((child) => {
     if (child instanceof THREE.Mesh) {
@@ -280,10 +398,8 @@ export function createStoryWorld(): StoryWorld {
 
   const portal = new THREE.Group();
   portal.name = "torii-portal";
-  portal.position.set(2.15, 1.83, 0.06);
+  portal.position.set(1.3, 1.68, 0.06);
   const portalMaterial = createPortalMaterial();
-  const membrane = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 3.0, 1, 1), portalMaterial);
-  portal.add(membrane);
   const portalRingMaterial = new THREE.MeshBasicMaterial({
     color: 0xff8a78,
     transparent: true,
@@ -292,14 +408,114 @@ export function createStoryWorld(): StoryWorld {
     depthWrite: false,
   });
   const rings: THREE.Mesh[] = [];
-  for (let index = 0; index < 3; index += 1) {
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.1 + index * 0.24, 0.012, 8, 96), portalRingMaterial.clone());
-    ring.scale.y = 1.22;
-    ring.position.z = -0.04 - index * 0.06;
+  for (let index = 0; index < 6; index += 1) {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.08 - index * 0.045, 0.012, 8, 96), portalRingMaterial.clone());
+    ring.scale.y = 1.24;
+    ring.position.z = -0.22 - index * 0.56;
     portal.add(ring);
     rings.push(ring);
   }
   root.add(portal);
+
+  // Procedural WebGL mist replaces the old full-screen cloud GIF. These
+  // sparse planes stay in the right-hand stage and retain real scene depth.
+  const cloudMaterial = createCloudMaterial();
+  const cloudField = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), cloudMaterial, 8);
+  cloudField.name = "procedural-cloud-field";
+  cloudField.renderOrder = -2;
+  const cloudTransforms: [number, number, number, number, number, number][] = [
+    [0.5, 3.45, -1.8, 5.4, 1.65, -0.08],
+    [3.1, 3.15, -1.2, 5.9, 1.9, 0.05],
+    [5.0, 2.35, -2.1, 4.7, 1.5, -0.12],
+    [0.75, 1.25, -1.6, 5.1, 1.55, 0.08],
+    [3.65, 0.72, -2.5, 6.3, 1.7, -0.04],
+    [5.5, 4.2, -3.2, 5.2, 1.45, 0.11],
+    [2.0, 4.65, -3.6, 6.8, 1.55, -0.02],
+    [1.9, -0.05, -3.1, 5.8, 1.35, 0.03],
+  ];
+  cloudTransforms.forEach(([x, y, z, width, height, rotation], index) => {
+    tempPosition.set(x, y, z);
+    tempQuaternion.setFromAxisAngle(FORWARD, rotation);
+    tempScale.set(width, height, 1);
+    tempMatrix.compose(tempPosition, tempQuaternion, tempScale);
+    cloudField.setMatrixAt(index, tempMatrix);
+  });
+  cloudField.instanceMatrix.needsUpdate = true;
+  root.add(cloudField);
+
+  // Before the first scroll the visitor sees a quiet destination beacon. It
+  // hands its orbit/light directly to the gate portal as the torii arrives.
+  const beacon = new THREE.Group();
+  beacon.name = "opening-destination-beacon";
+  beacon.position.set(2.2, 1.58, 0.24);
+  const beaconRings: THREE.Mesh[] = [];
+  const beaconMaterials: THREE.MeshBasicMaterial[] = [];
+  for (let index = 0; index < 4; index += 1) {
+    const material = new THREE.MeshBasicMaterial({
+      color: index % 2 === 0 ? 0xe85b47 : 0xe2b66f,
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    beaconMaterials.push(material);
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(0.5 + index * 0.29, 0.018 - index * 0.002, 8, 96, Math.PI * (1.58 + index * 0.08)),
+      material,
+    );
+    ring.rotation.z = index * 1.27;
+    ring.scale.y = 0.72 + index * 0.08;
+    beacon.add(ring);
+    beaconRings.push(ring);
+  }
+  const beaconCoreMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffeee4,
+    emissive: 0xc73b2f,
+    emissiveIntensity: 0.42,
+    roughness: 0.2,
+    clearcoat: 0.8,
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+  });
+  const beaconCore = new THREE.Mesh(new THREE.SphereGeometry(0.235, 32, 24), beaconCoreMaterial);
+  beacon.add(beaconCore);
+  const petalMaterial = new THREE.MeshBasicMaterial({ color: 0xffa89a, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
+  const petalShape = new THREE.Shape();
+  petalShape.moveTo(0, -0.08);
+  petalShape.bezierCurveTo(0.12, -0.02, 0.12, 0.12, 0, 0.18);
+  petalShape.bezierCurveTo(-0.12, 0.12, -0.12, -0.02, 0, -0.08);
+  const beaconPetals = new THREE.Group();
+  for (let index = 0; index < 5; index += 1) {
+    const petal = new THREE.Mesh(new THREE.ShapeGeometry(petalShape), petalMaterial);
+    const angle = index / 5 * Math.PI * 2;
+    petal.position.set(Math.cos(angle) * 0.44, Math.sin(angle) * 0.3, 0.04 + index * 0.002);
+    petal.rotation.z = angle - Math.PI / 2;
+    petal.scale.setScalar(0.62);
+    beaconPetals.add(petal);
+  }
+  beacon.add(beaconPetals);
+  const beaconSparkPositions = new Float32Array(42 * 3);
+  for (let index = 0; index < 42; index += 1) {
+    const angle = (index / 42) * Math.PI * 2;
+    const radius = 0.72 + seeded(index + 221) * 1.05;
+    beaconSparkPositions[index * 3] = Math.cos(angle) * radius;
+    beaconSparkPositions[index * 3 + 1] = Math.sin(angle) * radius * 0.62;
+    beaconSparkPositions[index * 3 + 2] = (seeded(index + 242) - 0.5) * 0.5;
+  }
+  const beaconSparkGeometry = new THREE.BufferGeometry();
+  beaconSparkGeometry.setAttribute("position", new THREE.BufferAttribute(beaconSparkPositions, 3));
+  const beaconSparkMaterial = new THREE.PointsMaterial({
+    color: 0xffd3c7,
+    size: 0.035,
+    transparent: true,
+    opacity: 0,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+  const beaconSparks = new THREE.Points(beaconSparkGeometry, beaconSparkMaterial);
+  beacon.add(beaconSparks);
+  root.add(beacon);
 
   const dustCount = 280;
   const dustPositions = new Float32Array(dustCount * 3);
@@ -326,10 +542,17 @@ export function createStoryWorld(): StoryWorld {
   root.add(routeWorld.group);
 
   const suitcase = createRoamlySuitcase();
-  suitcase.position.set(1.45, -0.42, -20);
-  suitcase.scale.setScalar(1.42);
+  suitcase.position.set(1.35, 0.05, -20);
+  suitcase.scale.setScalar(0.82);
   suitcase.visible = false;
   root.add(suitcase);
+  const suitcaseMaterials = new Set<THREE.Material>();
+  suitcase.traverse((child) => {
+    if (child instanceof THREE.Mesh || child instanceof THREE.Line) {
+      const materials = Array.isArray(child.material) ? child.material : [child.material];
+      materials.forEach((material) => suitcaseMaterials.add(material));
+    }
+  });
   const body = suitcase.getObjectByName("suitcase-body");
   const handle = suitcase.getObjectByName("suitcase-handle");
   const tag = suitcase.getObjectByName("suitcase-tag");
@@ -340,6 +563,11 @@ export function createStoryWorld(): StoryWorld {
   const tagBase = tag?.position.clone() ?? new THREE.Vector3();
   const ribBases = ribs.map((rib) => rib?.position.clone() ?? new THREE.Vector3());
   const wheelBases = wheels.map((wheel) => wheel?.position.clone() ?? new THREE.Vector3());
+
+  const projectedSuitcase = createProjectedSuitcase();
+  projectedSuitcase.group.position.set(1.35, 1.78, -19.92);
+  projectedSuitcase.group.visible = false;
+  root.add(projectedSuitcase.group);
 
   const itineraryCards = [
     createStoryCard("06:10", "Fushimi Inari", "Sunrise walk · Free", "#f26f5f"),
@@ -426,47 +654,94 @@ export function createStoryWorld(): StoryWorld {
   root.add(coolLight);
 
   const introTargets = itineraryCards.map((_, index) => [
-    new THREE.Vector3(-1.25 + index * 1.85, 2.6 - Math.abs(index - 1) * 0.52, -20.3 - index * 0.25),
-    new THREE.Euler((index - 1) * -0.08, (index - 1) * 0.14, (index - 1) * 0.07),
+    new THREE.Vector3(0.05 + index * 1.18, 2.4 - Math.abs(index - 1) * 0.26, -20.36 - index * 0.12),
+    new THREE.Euler((index - 1) * -0.02, (index - 1) * 0.04, (index - 1) * 0.018),
   ] as const);
   const photoTargets = [
-    new THREE.Vector3(-2.9, 2.15, -28.6),
-    new THREE.Vector3(-0.25, 2.82, -30.6),
-    new THREE.Vector3(-2.05, -0.18, -28.8),
+    new THREE.Vector3(-1.25, 1.55, -35.2),
+    new THREE.Vector3(0.15, 2.3, -36.1),
+    new THREE.Vector3(-0.8, 0.08, -35.72),
   ];
 
   function update(phase: number, elapsed: number, pointer: THREE.Vector2) {
-    const toriiArrival = 0.28 + between(phase, 0.0, 0.72) * 0.72;
-    const toriiX = THREE.MathUtils.lerp(2.15, 0, between(phase, 0.15, 1.18));
+    const toriiArrival = between(phase, 0.018, 0.44);
+    const toriiX = THREE.MathUtils.lerp(1.3, 0, between(phase, 0.48, 1.24));
     torii.position.x = toriiX;
-    torii.position.y = -0.28 + Math.sin(elapsed * 0.55) * 0.016;
+    torii.position.y = -0.18 + Math.sin(elapsed * 0.55) * 0.012 * toriiArrival;
     torii.rotation.y = pointer.x * 0.025 + Math.sin(elapsed * 0.32) * 0.012;
+    torii.scale.setScalar(THREE.MathUtils.lerp(0.76, 1.02, toriiArrival));
     torii.children.forEach((child, index) => {
       const base = toriiBase.get(child);
-      if (!base) return;
-      const horizontal = index % 2 === 0 ? -1 : 1;
-      child.position.x = base.x + horizontal * (1 - toriiArrival) * (0.42 + index * 0.04);
-      child.position.y = base.y + (1 - toriiArrival) * (index < 2 ? -0.7 : 1.15 + index * 0.08);
+      const baseRotation = toriiRotationBase.get(child);
+      if (!base || !baseRotation) return;
+      const childStart = index < 2 ? 0.015 + index * 0.012 : 0.055 + (index - 2) * 0.018;
+      const childEnd = index < 2 ? 0.29 + index * 0.025 : 0.35 + (index - 2) * 0.018;
+      const childArrival = between(phase, childStart, childEnd);
+      if (index < 2) {
+        const side = index === 0 ? -1 : 1;
+        child.position.x = base.x + side * (1 - childArrival) * 5.8;
+        child.position.y = base.y - (1 - childArrival) * 1.45;
+        child.position.z = base.z + (1 - childArrival) * 1.2;
+        child.rotation.z = baseRotation.z + side * (1 - childArrival) * 0.2;
+      } else {
+        const side = index % 2 === 0 ? -1 : 1;
+        child.position.x = base.x + side * (1 - childArrival) * (3.9 + index * 0.18);
+        child.position.y = base.y + (1 - childArrival) * (3.8 + index * 0.18);
+        child.position.z = base.z + (1 - childArrival) * 0.8;
+        child.rotation.z = baseRotation.z + side * (1 - childArrival) * 0.15;
+      }
     });
-    const toriiFade = 1 - between(phase, 1.72, 2.22);
-    torii.visible = toriiFade > 0.002;
+    // The camera crosses the gate plane around phase 1.6. Keep the physical
+    // torii present until the viewer is behind it, then release it cleanly.
+    const toriiFade = 1 - between(phase, 1.7, 2.04);
+    const toriiOpacity = toriiArrival * toriiFade;
+    torii.visible = toriiOpacity > 0.002;
     toriiMaterials.forEach((material) => {
-      material.transparent = toriiFade < 0.995;
-      material.opacity = toriiFade;
+      material.transparent = toriiOpacity < 0.995;
+      material.opacity = toriiOpacity;
     });
 
+    const beaconFade = 1 - between(phase, 0.018, 0.34);
+    beacon.visible = beaconFade > 0.002;
+    beacon.position.x = 2.2 + pointer.x * 0.08;
+    beacon.position.y = 1.58 + pointer.y * 0.05 + Math.sin(elapsed * 0.7) * 0.025;
+    beacon.rotation.z = Math.sin(elapsed * 0.18) * 0.04;
+    beaconRings.forEach((ring, index) => {
+      ring.rotation.z = index * 1.27 + elapsed * (0.08 + index * 0.026) * (index % 2 ? -1 : 1);
+      const pulse = 1 + Math.sin(elapsed * 0.85 + index * 0.9) * 0.025;
+      ring.scale.x = pulse;
+      ring.scale.y = (0.72 + index * 0.08) * pulse;
+      beaconMaterials[index].opacity = beaconFade * (0.38 - index * 0.055);
+    });
+    beaconCore.rotation.x = elapsed * 0.18;
+    beaconCore.rotation.y = elapsed * 0.26;
+    beaconCore.scale.setScalar(0.9 + Math.sin(elapsed * 1.2) * 0.08);
+    beaconCoreMaterial.opacity = beaconFade * 0.62;
+    petalMaterial.opacity = beaconFade * 0.78;
+    beaconPetals.rotation.z = elapsed * 0.15;
+    beaconSparks.rotation.z = -elapsed * 0.045;
+    beaconSparkMaterial.opacity = beaconFade * 0.58;
+
+    const cloudFade = 1 - between(phase, 1.12, 1.92);
+    cloudField.visible = cloudFade > 0.002;
+    cloudField.position.x = Math.sin(elapsed * 0.055) * 0.16 + pointer.x * 0.06;
+    cloudField.position.y = Math.sin(elapsed * 0.09) * 0.035;
+    cloudMaterial.uniforms.uTime.value = elapsed;
+    cloudMaterial.uniforms.uOpacity.value = cloudFade * 0.76;
+
     portal.position.x = toriiX;
-    const portalPower = Math.max(bell(phase, 0.18, 1.18, 2.18), 0.08 * toriiFade);
+    portal.position.y = 1.68;
+    const portalPower = Math.max(bell(phase, 0.16, 1.42, 2.12), 0.045 * toriiOpacity);
     portal.visible = portalPower > 0.002;
     portalMaterial.uniforms.uTime.value = elapsed;
     portalMaterial.uniforms.uIntensity.value = portalPower;
-    portalMaterial.uniforms.uFlash.value = bell(phase, 1.38, 1.78, 2.04);
+    portalMaterial.uniforms.uFlash.value = bell(phase, 1.42, 1.64, 1.9) * 0.62;
     rings.forEach((ring, index) => {
       ring.rotation.z = elapsed * (0.08 + index * 0.028) * (index % 2 ? -1 : 1);
       ring.scale.setScalar(1 + Math.sin(elapsed * 0.7 + index) * 0.018);
       ring.scale.y *= 1.22;
       const material = ring.material as THREE.MeshBasicMaterial;
-      material.opacity = portalPower * (0.2 - index * 0.035);
+      material.opacity = portalPower * (0.18 - index * 0.018);
     });
 
     dust.rotation.z = Math.sin(elapsed * 0.08) * 0.015;
@@ -474,11 +749,10 @@ export function createStoryWorld(): StoryWorld {
     dust.position.y = Math.sin(elapsed * 0.23) * 0.08 + pointer.y * 0.08;
 
     const routeReveal = between(phase, 1.76, 2.72);
-    const routeFade = 1 - between(phase, 3.08, 3.56);
+    const routeFade = 1 - between(phase, 2.84, 3.06);
     routeWorld.group.visible = routeReveal * routeFade > 0.001;
     routeWorld.route.count = Math.max(0, Math.floor(routeReveal * 84));
     routeWorld.routeMaterial.opacity = routeReveal * routeFade;
-    (routeWorld.mountains.material as THREE.MeshStandardMaterial).opacity = routeReveal * routeFade * 0.42;
     (routeWorld.nodes.material as THREE.MeshStandardMaterial).opacity = routeReveal * routeFade;
     (routeWorld.nodes.material as THREE.MeshStandardMaterial).transparent = true;
     const trainT = clamp01(0.02 + routeReveal * 0.92);
@@ -487,38 +761,43 @@ export function createStoryWorld(): StoryWorld {
     routeWorld.train.quaternion.setFromUnitVectors(FORWARD, tangent);
     routeWorld.train.scale.setScalar(0.5 + routeReveal * 0.28);
 
-    const assembly = between(phase, 2.62, 3.32);
-    const suitcaseExit = between(phase, 4.02, 4.42);
-    suitcase.visible = assembly > 0.002 && suitcaseExit < 0.999;
-    suitcase.position.y = -0.42 + Math.sin(elapsed * 0.75) * 0.045 * assembly;
-    suitcase.position.z = -20 - suitcaseExit * 2.4;
-    suitcase.rotation.y = THREE.MathUtils.lerp(-0.72, 0.34, assembly) + pointer.x * 0.07;
+    const assembly = between(phase, 3.015, 3.2);
+    const projectionIn = between(phase, 3.08, 3.22);
+    const suitcaseExit = between(phase, 3.8, 4.04);
+    suitcase.visible = assembly > 0.002 && projectionIn < 0.96 && suitcaseExit < 0.999;
+    suitcase.position.y = 0.05 + Math.sin(elapsed * 0.75) * 0.032 * assembly;
+    suitcase.position.z = -20 - suitcaseExit * 1.2;
+    suitcase.rotation.y = THREE.MathUtils.lerp(-0.58, 0.18, assembly) + pointer.x * 0.035;
     suitcase.rotation.x = THREE.MathUtils.lerp(-0.18, 0.02, assembly) + pointer.y * 0.025;
-    suitcase.scale.setScalar(THREE.MathUtils.lerp(0.15, 1.42, assembly) * (1 - suitcaseExit * 0.38));
+    suitcase.scale.setScalar(THREE.MathUtils.lerp(0.12, 0.82, assembly) * (1 - suitcaseExit * 0.5));
+    suitcaseMaterials.forEach((material) => {
+      material.transparent = true;
+      material.opacity = 1 - projectionIn;
+    });
     if (body) {
       body.position.y = THREE.MathUtils.lerp(bodyBase.y - 2.1, bodyBase.y, assembly);
       body.rotation.z = (1 - assembly) * -0.42;
     }
     if (handle) {
-      const handleArrival = between(phase, 2.82, 3.42);
+      const handleArrival = between(phase, 3.035, 3.18);
       handle.position.y = THREE.MathUtils.lerp(handleBase.y - 1.25, handleBase.y + handleArrival * 0.32, handleArrival);
     }
     if (tag) {
-      const tagArrival = between(phase, 3.02, 3.52);
+      const tagArrival = between(phase, 3.07, 3.2);
       tag.position.lerpVectors(tagBase.clone().add(new THREE.Vector3(1.6, 1.8, 0.8)), tagBase, tagArrival);
       tag.rotation.z = -0.16 + Math.sin(elapsed * 2.2) * 0.1 * assembly;
       tag.rotation.y = Math.sin(elapsed * 1.7) * 0.08;
     }
     ribs.forEach((rib, index) => {
       if (!rib) return;
-      const ribArrival = between(phase, 2.7 + index * 0.045, 3.13 + index * 0.045);
+      const ribArrival = between(phase, 3.025 + index * 0.012, 3.14 + index * 0.01);
       rib.position.x = ribBases[index].x + (index % 2 ? 1 : -1) * (1 - ribArrival) * 1.3;
       rib.position.y = ribBases[index].y + (1 - ribArrival) * (index - 2.5) * 0.28;
       rib.position.z = THREE.MathUtils.lerp(2.1 + index * 0.09, ribBases[index].z, ribArrival);
     });
     wheels.forEach((wheel, index) => {
       if (!wheel) return;
-      const wheelArrival = between(phase, 2.88 + index * 0.035, 3.22 + index * 0.035);
+      const wheelArrival = between(phase, 3.045 + index * 0.012, 3.17 + index * 0.008);
       wheel.position.x = THREE.MathUtils.lerp((index % 2 ? 1 : -1) * 1.7, wheelBases[index].x, wheelArrival);
       wheel.position.y = THREE.MathUtils.lerp(-1.15, wheelBases[index].y, wheelArrival);
       wheel.position.z = THREE.MathUtils.lerp(1.2 - index * 0.3, wheelBases[index].z, wheelArrival);
@@ -527,8 +806,25 @@ export function createStoryWorld(): StoryWorld {
     });
     warmLight.intensity = assembly * (1 - suitcaseExit) * 24;
 
-    const cardsEmerge = between(phase, 3.08, 3.72);
-    const cardsExit = between(phase, 3.82, 4.22);
+    projectedSuitcase.group.visible = projectionIn > 0.002 && suitcaseExit < 0.999;
+    projectedSuitcase.group.position.y = 1.78 + Math.sin(elapsed * 0.65) * 0.018 * projectionIn - suitcaseExit * 0.55;
+    projectedSuitcase.group.position.z = -19.92 - suitcaseExit * 1.8;
+    projectedSuitcase.group.rotation.y = 0.08 + pointer.x * 0.035;
+    projectedSuitcase.group.rotation.x = pointer.y * 0.012;
+    projectedSuitcase.group.scale.setScalar(0.88 * (1 - suitcaseExit * 0.18));
+    projectedSuitcase.strips.forEach((strip, index) => {
+      const settledY = -projectedSuitcase.height * 0.5 + (projectedSuitcase.height / 6) * (index + 0.5);
+      const side = index % 2 ? 1 : -1;
+      strip.position.x = side * (1 - assembly) * (1.5 + index * 0.12);
+      strip.position.y = settledY + (1 - assembly) * (index - 2.5) * 0.3;
+      strip.position.z = index * 0.002 + (1 - assembly) * (0.5 + index * 0.09);
+      strip.rotation.z = side * (1 - assembly) * (0.16 + index * 0.025);
+      projectedSuitcase.materials[index].opacity = projectionIn * (1 - suitcaseExit);
+    });
+    projectedSuitcase.shadowMaterial.opacity = projectionIn * (1 - suitcaseExit) * 0.24;
+
+    const cardsEmerge = between(phase, 3.34, 3.58);
+    const cardsExit = between(phase, 3.82, 4.04);
     itineraryCards.forEach((card, index) => {
       const target = introTargets[index];
       card.visible = cardsEmerge > 0.002 && cardsExit < 0.999;
@@ -540,44 +836,58 @@ export function createStoryWorld(): StoryWorld {
         target[1].z * cardsEmerge,
       );
       const scale = Math.max(0.001, cardsEmerge * (1 - cardsExit));
-      card.scale.setScalar(scale * (0.52 + index * 0.03));
+      card.scale.setScalar(scale * (0.34 + index * 0.018));
     });
 
-    const memoriesIn = between(phase, 3.72, 4.24);
-    const memoriesOut = between(phase, 4.82, 5.18);
+    // Memory chapter: enter slowly, hold the complete composition, then make
+    // a short handoff to sharing. Per-frame staggering prevents a fast wheel
+    // gesture from turning the gallery into one unreadable burst.
+    const memoriesOut = between(phase, 4.9, 5.08);
+    const memoryDolly = between(phase, 4.58, 4.92);
     photoFrames.forEach((frame, index) => {
-      const start = new THREE.Vector3(1.45, 1.2, -21.2 - index * 0.3);
+      const memoriesIn = between(phase, 4.04 + index * 0.055, 4.48 + index * 0.045);
+      const start = new THREE.Vector3(1.15, 1.2, -27.2 - index * 0.25);
       const target = photoTargets[index];
       frame.visible = memoriesIn > 0.002 && memoriesOut < 0.999;
       frame.position.lerpVectors(start, target, memoriesIn);
-      frame.position.z -= memoriesOut * 4.2;
+      frame.position.y += Math.sin(elapsed * 0.34 + index * 1.4) * 0.018 * memoriesIn * (1 - memoriesOut);
+      frame.position.z -= memoryDolly * 4.5 + memoriesOut * 3.2;
       frame.rotation.set(
-        (index - 1) * 0.055 + pointer.y * 0.02,
-        (index - 1) * -0.17 + pointer.x * 0.04,
-        (index - 1) * 0.075 + Math.sin(elapsed * 0.55 + index) * 0.012,
+        (index - 1) * 0.018 + pointer.y * 0.008,
+        (index - 1) * -0.045 + pointer.x * 0.012,
+        (index - 1) * 0.022 + Math.sin(elapsed * 0.34 + index) * 0.003,
       );
-      const frameScale = index === 0 ? 0.7 : index === 1 ? 0.57 : 0.73;
+      const frameScale = index === 0 ? 0.44 : index === 1 ? 0.36 : 0.4;
       const scale = memoriesIn * (1 - memoriesOut * 0.55) * frameScale;
       frame.scale.setScalar(Math.max(0.001, scale));
     });
-    coolLight.intensity = memoriesIn * (1 - memoriesOut) * 18;
+    const memoryField = between(phase, 4.04, 4.62);
+    const memoryGlint = bell(phase, 4.32, 4.56, 4.8);
+    coolLight.intensity = memoryField * (1 - memoriesOut) * 15 + memoryGlint * 5;
 
-    const sharedIn = between(phase, 4.72, 5.18);
-    const gather = between(phase, 5.08, 5.82);
-    const sharedOut = between(phase, 5.88, 6.28);
+    const sharedIn = between(phase, 5.02, 5.24);
+    const gather = between(phase, 5.58, 5.9);
+    const sharedOut = between(phase, 5.94, 6.22);
     sharedGroup.visible = sharedIn > 0.002 && sharedOut < 0.999;
     sharedCards.forEach((card, index) => {
       const angle = (index / sharedCards.length) * Math.PI * 2 - Math.PI / 2;
-      const scatter = new THREE.Vector3(Math.cos(angle) * 5.35, 1.25 + Math.sin(angle) * 2.55, (index - 2) * -0.8);
+      const centredArc = [
+        new THREE.Vector3(-2.3, -0.28, -0.28),
+        new THREE.Vector3(-1.45, -0.46, -0.04),
+        new THREE.Vector3(1.05, 2.55, 0.08),
+        new THREE.Vector3(1.28, 1.5, -0.04),
+        new THREE.Vector3(2.3, 2.08, -0.28),
+      ];
+      const scatter = centredArc[index];
       const stack = new THREE.Vector3((index - 2) * 0.13, 1.25 + (2 - index) * 0.09, -index * 0.12);
       card.position.lerpVectors(scatter, stack, gather);
       card.position.z -= sharedOut * 3;
       card.rotation.set(
-        Math.sin(angle) * 0.1 * (1 - gather),
-        -Math.cos(angle) * 0.18 * (1 - gather) + pointer.x * 0.025,
-        Math.sin(angle) * 0.16 * (1 - gather),
+        Math.sin(angle) * 0.025 * (1 - gather),
+        -Math.cos(angle) * 0.055 * (1 - gather) + pointer.x * 0.01,
+        Math.sin(angle) * 0.035 * (1 - gather),
       );
-      card.scale.setScalar(Math.max(0.001, sharedIn * (1 - sharedOut) * THREE.MathUtils.lerp(0.48, 0.6, gather)));
+      card.scale.setScalar(Math.max(0.001, sharedIn * (1 - sharedOut) * THREE.MathUtils.lerp(0.36, 0.48, gather)));
     });
 
     const horizonIn = between(phase, 5.62, 6.35);
@@ -603,6 +913,7 @@ export function createStoryWorld(): StoryWorld {
         material.dispose();
       });
     });
+    portalMaterial.dispose();
   }
 
   return { root, portalMaterial, update, dispose };
